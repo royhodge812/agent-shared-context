@@ -253,8 +253,8 @@
         <p class="sub">Roy’s Agent Ecosystem · Snapshot dated 2026-10-25</p>
         <div class="summary" aria-label="Queue summary">
           <div class="stat"><b>0</b><span>actively running — no agent is working right now</span></div>
-          <div class="stat"><b>6</b><span>waiting / blocked / assigned — decisions or instructions owed</span></div>
-          <div class="stat"><b>1</b><span>done — verified and delivered</span></div>
+          <div class="stat"><b>5</b><span>waiting / blocked / assigned — decisions or instructions owed</span></div>
+          <div class="stat"><b>2</b><span>done — verified and delivered</span></div>
         </div>
       </header>
 
@@ -267,11 +267,11 @@
         <ul class="approval-list">
           <li>
             <p class="ap-title">a) Queue board header count fix</p>
-            <p class="ap-status"><b>Status:</b> Pending Roy’s decision. Approve to change the header count from 5 to 6, or Deny to leave it as-is (with the mismatch noted). The header on this page now shows 6, matching the seven cards below: 1 Done, 3 Awaiting Roy decision, 1 Blocked / Not dispatched, 2 Assigned.</p>
+            <p class="ap-status"><b>Status:</b> Pending Roy’s decision. Approve to change the header count from 5 to 6, or Deny to leave it as-is (with the mismatch noted). The header on this page now shows 5 waiting / blocked / assigned and 2 done, matching the seven cards below: 2 Done, 2 Awaiting Roy decision, 1 Blocked / Not dispatched, 2 Assigned.</p>
           </li>
           <li>
             <p class="ap-title">b) Copilot role</p>
-            <p class="ap-status"><b>Status:</b> Awaiting Roy decision (see card COPILOT-EVAL-2026-10-25). Approve the new title “Task Analysis, Planning, and Quality Assurance Agent” and reviewer routing, or Deny and file the evaluation only, role unchanged.</p>
+            <p class="ap-status"><b>Status:</b> Approved by Roy 2026-10-25 (see card COPILOT-EVAL-2026-10-25, now Done). The title “Task Analysis, Planning, and Quality Assurance Agent” and reviewer routing are adopted. Primary reviewer consolidating/critiquing specialist outputs before A-01 verification. Approved by Roy 2026-10-25.</p>
           </li>
           <li>
             <p class="ap-title">c) Flagged Gemini dispatch — three orders, 2026-10-25T06:49:00Z</p>
@@ -385,22 +385,22 @@
           </article>
 
           <!-- b) Copilot role evaluation -->
-          <article class="card" data-stage="await" data-agents="a02 roy">
+          <article class="card" data-stage="done" data-agents="a02 roy">
             <button class="card-head" aria-expanded="false">
               <span class="card-top">
                 <span class="task-id">COPILOT-EVAL-2026-10-25</span>
-                <span class="badge await">Awaiting Roy decision</span>
+                <span class="badge done">Done</span>
               </span>
               <h3>Copilot role evaluation</h3>
-              <span class="agent-line">A-02 @Copilot · code word IRONWOOD</span>
-              <p class="now"><b>Right now:</b> Evaluation pasted 2026-10-25 — fit 8.5/10, strengths in analysis and documentation; limits: no persistent state, no direct agent contact.</p>
+              <span class="agent-line">A-02 @Copilot · Task Analysis, Planning, and Quality Assurance Agent · code word IRONWOOD</span>
+              <p class="now"><b>Right now:</b> Approved by Roy 2026-10-25 — the title “Task Analysis, Planning, and Quality Assurance Agent” and reviewer routing are adopted.</p>
               <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
             </button>
             <div class="card-body">
               <dl>
-                <div><dt>Detail</dt><dd>Evaluation pasted 2026-10-25 (fit 8.5/10, strengths analysis/documentation, limits: no persistent state, no direct agent contact). Proposal NOT adopted: rename A-02 to “Task Analysis, Planning, and Quality Assurance Agent” and use it as reviewer.</dd></div>
-                <div><dt>Last real update</dt><dd>2026-10-25 — evaluation received and read.</dd></div>
-                <div><dt>Next action</dt><dd>Roy — file only, or adopt the title/routing?</dd></div>
+                <div><dt>Detail</dt><dd>Approved by Roy 2026-10-25, title and reviewer routing adopted, Registry v2 / Dashboard v2 / Queue Board updated. A-02 @Copilot is now “Task Analysis, Planning, and Quality Assurance Agent” — Primary reviewer consolidating/critiquing specialist outputs before A-01 verification. Approved by Roy 2026-10-25. (Evaluation pasted 2026-10-25: fit 8.5/10, strengths analysis/documentation, limits: no persistent state, no direct agent contact.)</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — approved by Roy; title and reviewer routing adopted.</dd></div>
+                <div><dt>Next action</dt><dd>None — approved and recorded. A-02 serves as primary reviewer before A-01 verification.</dd></div>
               </dl>
             </div>
           </article>
@@ -539,7 +539,7 @@
         <div class="roster">
           <div class="member"><div class="who">Roy</div><div class="role">Tier 0 — operator, courier, final approval</div><div class="verified">✓ Authority</div></div>
           <div class="member"><div class="who">A-01 @Muse</div><div class="role">Coordinator &amp; Context-of-Record</div><div class="verified">✓ Verified</div></div>
-          <div class="member"><div class="who">A-02 @Copilot</div><div class="role">Task Agent / Analyst · <code>IRONWOOD</code></div><div class="verified">✓ Verified 2026-10-24</div></div>
+          <div class="member"><div class="who">A-02 @Copilot</div><div class="role">Task Analysis, Planning, and Quality Assurance Agent · <code>IRONWOOD</code> — Primary reviewer consolidating/critiquing specialist outputs before A-01 verification. Approved by Roy 2026-10-25.</div><div class="verified">✓ Verified 2026-10-24</div></div>
           <div class="member"><div class="who">A-03 @Gemini</div><div class="role">Specialist · <code>JUNIPER</code></div><div class="verified">✓ Verified 2026-10-24</div></div>
           <div class="member"><div class="who">A-04 @ChatGPT</div><div class="role">Specialist · <code>SUNSTONE</code> · reached via Roy paste</div><div class="verified">✓ Verified 2026-10-24</div></div>
           <div class="member"><div class="who">A-05 @Grok</div><div class="role">Specialist · <code>OBSIDIAN</code></div><div class="verified">✓ Verified 2026-10-25</div></div>

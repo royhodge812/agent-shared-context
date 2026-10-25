@@ -13,8 +13,9 @@ Rank chain: Operator > Coordinator > Task Agent > Specialist
   - Job: Keeps the shared record, briefs tasks, verifies results, routes work to other agents, mirrors the record to Drive and GitHub.
   - Logo: Muse_icon.svg in Agent-Coordination/agents-assets
 
-- Rank 2 — A-02 @Copilot — Task Agent / Analyst — Verified — Code word: IRONWOOD
-  - Job: Analyze, draft, and return work to A-01 @Muse for verification.
+- Rank 2 — A-02 @Copilot — Task Analysis, Planning, and Quality Assurance Agent — Verified — Code word: IRONWOOD
+  - Job: Analyze requests and requirements, develop plans and task breakdowns, review documents for consistency, identify risks and missing information, produce summaries and decision support, and validate deliverables against stated objectives. Primary reviewer consolidating and critiquing specialist outputs before they reach A-01 @Muse for verification.
+  - Title and reviewer routing approved by Roy 2026-10-25 (was "Task Agent / Analyst"; evaluation fit 8.5/10, filed 2026-10-25).
   - Must not claim to be Coordinator or Context-of-Record.
   - Logo: microsoft-copilot.svg
 
