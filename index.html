@@ -123,10 +123,27 @@ tr:last-child td{border-bottom:0}
 .tl p{color:var(--muted);margin:4px 0 0}
 footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .note{font-size:.88rem;background:var(--await-bg);border:1px solid #f59e0b33;padding:10px 12px;border-radius:12px;color:var(--ink)}
+/* Site navigation — shared across the three Pages pages */
+.site-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px;box-shadow:var(--shadow)}
+.site-nav a{padding:8px 16px;border-radius:999px;font-weight:800;font-size:.92rem;text-decoration:none;color:var(--muted);white-space:nowrap}
+.site-nav a:hover{color:var(--ink);background:var(--surface2)}
+.site-nav a.current{background:var(--dark);color:#fff}
+.site-nav a.ext{margin-left:auto}
+.site-nav-top{margin-top:18px}
+.site-nav-bottom{margin-top:28px}
+@media(max-width:560px){.site-nav{border-radius:20px}.site-nav a{padding:8px 12px;font-size:.88rem}.site-nav a.ext{margin-left:0}}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <!-- SITE NAV (top) -->
+  <nav class="site-nav site-nav-top" aria-label="Site pages">
+    <a href="index.html" class="current" aria-current="page">Dashboard</a>
+    <a href="coordination.html">Coordination</a>
+    <a href="queue.html">Task Queue</a>
+    <a href="https://github.com/royhodge812/agent-shared-context" class="ext" target="_blank" rel="noopener">GitHub Repo ↗</a>
+  </nav>
+
   <!-- HERO -->
   <header class="hero">
     <div class="hero-top">
@@ -345,6 +362,14 @@ Do not start work until A-01 marks you Verified.</pre><button class="copy-btn" d
     <span class="mono">Check-ins: IRONWOOD • JUNIPER • SUNSTONE • OBSIDIAN</span>
     <span>Be careful kids, have fun.</span>
   </footer>
+
+  <!-- SITE NAV (bottom) -->
+  <nav class="site-nav site-nav-bottom" aria-label="Site pages">
+    <a href="index.html" class="current" aria-current="page">Dashboard</a>
+    <a href="coordination.html">Coordination</a>
+    <a href="queue.html">Task Queue</a>
+    <a href="https://github.com/royhodge812/agent-shared-context" class="ext" target="_blank" rel="noopener">GitHub Repo ↗</a>
+  </nav>
 </div>
 <script>
 document.querySelectorAll('.card').forEach(function(card){

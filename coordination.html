@@ -144,6 +144,19 @@
         #packet{font-size:9.5px;padding:4px 7px 4px 5px}
         .stage{aspect-ratio:800/560}
       }
+      /* Site navigation */
+      .site-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+      .site-nav.top{margin-bottom:10px}
+      .site-nav.bottom{margin-top:28px}
+      .site-nav a{color:var(--ink2);text-decoration:none;font-size:14.5px;font-weight:600;line-height:1.2;border:1px solid var(--line2);background:#1c212a;border-radius:9px;padding:8px 13px;display:inline-flex;align-items:center;min-height:38px}
+      .site-nav a:hover{border-color:#46536a;background:#222936;color:var(--ink)}
+      .site-nav a.current{background:var(--Muse);border-color:var(--Muse);color:#1c1200}
+      .site-nav a.current:hover{background:#ffb63e;border-color:#ffb63e;color:#1c1200}
+      .site-nav-note{color:var(--ink3);font-size:13.5px;line-height:1.45;margin:0 0 22px}
+      @media (max-width:640px){
+        .site-nav{gap:6px;padding:8px}
+        .site-nav a{font-size:13.5px;padding:7px 10px;flex:1 1 auto;justify-content:center;text-align:center}
+      }
       @media (prefers-reduced-motion: reduce){
         .node.active .pulse{animation:none;opacity:.5}
         html{scroll-behavior:auto}
@@ -152,6 +165,13 @@
   </head>
   <body>
     <main>
+      <nav class="site-nav top" aria-label="Site">
+        <a href="index.html">Dashboard</a>
+        <a href="coordination.html" class="current" aria-current="page">Coordination</a>
+        <a href="queue.html">Task Queue</a>
+        <a href="https://github.com/royhodge812/agent-shared-context">GitHub Repo</a>
+      </nav>
+      <p class="site-nav-note">Part of Roy's Agent Ecosystem Pages site — use the nav to move between Dashboard, Coordination, and Task Queue.</p>
       <h1>Agent Coordination in Motion</h1>
       <p class="lede">How Roy and his five verified agents actually work together — one task at a time, through a briefed packet, human hands, and a written record.</p>
 
@@ -416,6 +436,13 @@
       <footer>
         Agent Coordination in Motion — a demonstration of the workflow recorded in Registry v2. Live record: Google Drive, Agent-Coordination. Backup: <a href="https://github.com/royhodge812/agent-shared-context">github.com/royhodge812/agent-shared-context</a> · Dashboard: <a href="https://royhodge812.github.io/agent-shared-context/">royhodge812.github.io/agent-shared-context</a>. Roster 5/5 verified as of Oct 25, 2026.
       </footer>
+
+      <nav class="site-nav bottom" aria-label="Site">
+        <a href="index.html">Dashboard</a>
+        <a href="coordination.html" class="current" aria-current="page">Coordination</a>
+        <a href="queue.html">Task Queue</a>
+        <a href="https://github.com/royhodge812/agent-shared-context">GitHub Repo</a>
+      </nav>
     </main>
 
     <script>
