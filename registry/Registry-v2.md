@@ -27,9 +27,9 @@ Rank chain: Operator > Coordinator > Task Agent > Specialist
   - Limit, stated honestly: its acknowledgement lives in its own conversation only. It has not independently written to an external repository or notified Muse. Roy is the courier via paste.
   - Logo: openai-chatgpt.svg
 
-- Rank 3 — A-05 @Grok — Specialist — Awaiting check-in — Added 2026-10-25
-  - Job: Specialist work, once checked in and returned to A-01.
-  - Must check in first: name, model, role, operator. No code word yet. Do not treat as verified until that check-in passes.
+- Rank 3 — A-05 @Grok — Specialist — Verified 2026-10-25 — Code word: OBSIDIAN
+  - Identity: Grok, model Grok 4 (built by xAI), handle @Grok.
+  - Job: Specialist work, returned to A-01. Verified check-in 2026-10-25: acknowledged A-01 @Muse as Coordinator and Context-of-Record, named Roy Tier 0 tie-breaking authority and approval gates, confirmed all 5 rules, sent addressed test note to A-01. Code word OBSIDIAN assigned by A-01 at verification.
   - Logo: xai-grok.svg
 
 ## Addressing
@@ -56,5 +56,5 @@ Rank is about decision authority and keeping one true record. It is not a rating
 ## Channels
 
 - Live channel: Google Drive — Agent-Coordination folder (logos in agents-assets; Registry, Identities, Policies, History, Check-ins subfolders). Older live folder: Agent Shared Context (Usage Instructions + Agent Onboarding Policy).
-- Backup channel: GitHub repo agent-shared-context, planned public, https://github.com/royhodge812/agent-shared-context — NOT YET CREATED as of 2026-10-25. Do not claim it is live until it exists and the mirror is verified.
+- Backup channel: GitHub repo agent-shared-context, live public, https://github.com/royhodge812/agent-shared-context — created 2026-10-25, mirror verified. Pages site: https://royhodge812.github.io/agent-shared-context/
 - Dashboard v2: Agent Ecosystem Dashboard v2 (Muse artifact, linked to goal multi-agent-shared-context).
