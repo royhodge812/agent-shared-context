@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Agent Task Queue Board</title>
+    <style>
+      :root {
+        --bg: #f4f5f2;
+        --surface: #ffffff;
+        --surface-2: #eceee9;
+        --ink: #1c2220;
+        --ink-2: #4a5450;
+        --line: #d5d9d2;
+        --accent: #1f6f5c;
+        --accent-ink: #ffffff;
+        --warn-bg: #fdf3d7;
+        --warn-border: #b8890b;
+        --warn-ink: #5c4405;
+        --badge-done: #1f6f5c;
+        --badge-await: #8a5a00;
+        --badge-blocked: #a33226;
+        --badge-assigned: #3d5a8a;
+        --chip-bg: #e7eae4;
+        --chip-active: #1c2220;
+        --shadow: 0 1px 3px rgba(20, 28, 24, 0.10);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #141817;
+          --surface: #1e2422;
+          --surface-2: #262d2a;
+          --ink: #e8ece9;
+          --ink-2: #a9b3ad;
+          --line: #39423e;
+          --accent: #3fae8d;
+          --accent-ink: #0d1512;
+          --warn-bg: #33290e;
+          --warn-border: #c9a227;
+          --warn-ink: #f3d97e;
+          --badge-done: #2f8f70;
+          --badge-await: #b57e1e;
+          --badge-blocked: #c04a3a;
+          --badge-assigned: #5b7cb8;
+          --chip-bg: #2c3531;
+          --chip-active: #e8ece9;
+          --shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 48px; }
+
+      /* Honesty banner */
+      .banner {
+        background: var(--warn-bg);
+        border-bottom: 3px solid var(--warn-border);
+        color: var(--warn-ink);
+      }
+      .banner-inner { max-width: 960px; margin: 0 auto; padding: 16px; }
+      .banner .tag {
+        display: inline-block;
+        font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+        border: 2px solid var(--warn-border); border-radius: 4px; padding: 1px 7px; margin-bottom: 8px;
+      }
+      .banner p { margin: 0; font-size: 16.5px; font-weight: 600; line-height: 1.45; }
+
+      header.page { padding: 24px 0 8px; }
+      h1 { font-size: 30px; line-height: 1.15; margin: 0 0 4px; letter-spacing: -0.01em; }
+      .sub { color: var(--ink-2); font-size: 16px; margin: 0 0 18px; }
+
+      .summary { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 6px; }
+      .stat {
+        background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+        padding: 10px 16px; box-shadow: var(--shadow); min-width: 150px; flex: 1 1 150px;
+      }
+      .stat b { display: block; font-size: 30px; line-height: 1.05; font-variant-numeric: tabular-nums; }
+      .stat span { font-size: 13.5px; color: var(--ink-2); }
+
+      /* Approvals */
+      .approvals {
+        background: var(--surface); border: 2px solid var(--accent); border-radius: 12px;
+        padding: 16px 18px; box-shadow: var(--shadow); margin-top: 26px;
+      }
+      .approvals h2 { margin-bottom: 8px; }
+      .approvals p { margin: 0 0 10px; max-width: 72ch; }
+      .approvals p:last-of-type { margin-bottom: 0; }
+      .approvals h3 { font-size: 16px; margin: 18px 0 8px; }
+      .approval-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+      .approval-list li {
+        background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px;
+        padding: 12px 14px;
+      }
+      .approval-list .ap-title { font-weight: 700; font-size: 15.5px; margin: 0 0 3px; }
+      .approval-list .ap-status { margin: 0; font-size: 14.5px; color: var(--ink-2); }
+      .approval-list .ap-status b { color: var(--ink); }
+
+      section { margin-top: 34px; }
+      h2 { font-size: 21px; margin: 0 0 6px; letter-spacing: -0.01em; }
+      .lede { color: var(--ink-2); margin: 0 0 14px; max-width: 70ch; }
+
+      /* Pipeline */
+      .pipeline { display: flex; flex-direction: column; gap: 0; }
+      .stage-row {
+        display: flex; gap: 12px; align-items: flex-start;
+        background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+        padding: 12px 14px; box-shadow: var(--shadow);
+      }
+      .stage-row + .arrow { text-align: center; color: var(--ink-2); font-size: 15px; line-height: 1.1; padding: 1px 0; }
+      .stage-num {
+        flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%;
+        background: var(--accent); color: var(--accent-ink);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 14px; font-weight: 700; margin-top: 1px;
+      }
+      .stage-row h3 { margin: 0; font-size: 16px; }
+      .stage-row p { margin: 2px 0 0; color: var(--ink-2); font-size: 14.5px; }
+      .stage-row.blocked { border-style: dashed; }
+      .stage-row.blocked .stage-num { background: var(--badge-blocked); color: #fff; }
+      .rule-box {
+        margin-top: 14px; background: var(--surface-2); border: 1px solid var(--line);
+        border-radius: 10px; padding: 12px 14px; font-size: 15px;
+      }
+      .rule-box b { display: block; margin-bottom: 2px; }
+
+      /* Filters */
+      .filters { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-bottom: 14px; }
+      .filter-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+      .filter-group .flabel { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-2); margin-right: 2px; }
+      .chip {
+        appearance: none; border: 1px solid var(--line); background: var(--chip-bg); color: var(--ink);
+        border-radius: 999px; padding: 5px 12px; font-size: 14px; font-family: inherit; cursor: pointer;
+      }
+      .chip[aria-pressed="true"] { background: var(--chip-active); color: var(--bg); border-color: var(--chip-active); font-weight: 700; }
+      .chip:focus-visible, button:focus-visible, .card-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+      .no-results { color: var(--ink-2); font-style: italic; padding: 10px 2px; }
+
+      /* Cards */
+      .cards { display: flex; flex-direction: column; gap: 12px; }
+      .card {
+        background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+        box-shadow: var(--shadow); overflow: hidden;
+      }
+      .card-head {
+        width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
+        padding: 14px 16px 10px; font: inherit; color: inherit; display: block;
+      }
+      .card-top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 6px; }
+      .task-id { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px; color: var(--ink-2); }
+      .badge {
+        font-size: 12px; font-weight: 700; letter-spacing: 0.03em; color: #fff;
+        border-radius: 999px; padding: 2px 10px; white-space: nowrap;
+      }
+      .badge.done { background: var(--badge-done); }
+      .badge.await { background: var(--badge-await); }
+      .badge.blocked { background: var(--badge-blocked); }
+      .badge.assigned { background: var(--badge-assigned); }
+      .card h3 { margin: 0; font-size: 18px; line-height: 1.3; }
+      .card .agent-line { color: var(--ink-2); font-size: 14.5px; margin-top: 3px; }
+      .card .now { margin: 8px 0 2px; font-size: 15px; }
+      .card .now b { color: var(--ink); }
+      .expand-hint { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 6px; display: inline-block; }
+      .card-body { display: none; padding: 2px 16px 16px; border-top: 1px dashed var(--line); }
+      .card.open .card-body { display: block; }
+      .card.open .expand-hint .open-txt { display: none; }
+      .card .expand-hint .close-txt { display: none; }
+      .card.open .expand-hint .close-txt { display: inline; }
+      .card-body dl { margin: 10px 0 0; display: grid; gap: 10px; }
+      .card-body dt { font-size: 12.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-2); }
+      .card-body dd { margin: 2px 0 0; font-size: 15px; }
+
+      /* Demonstration */
+      .demo {
+        background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+        padding: 16px; box-shadow: var(--shadow);
+      }
+      .demo-tag {
+        display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 0.09em;
+        border: 2px solid var(--warn-border); color: var(--warn-ink); background: var(--warn-bg);
+        border-radius: 4px; padding: 1px 8px; margin-bottom: 10px;
+      }
+      .demo-stage {
+        min-height: 118px; display: flex; flex-direction: column; justify-content: center;
+        background: var(--surface-2); border-radius: 10px; padding: 18px; text-align: center;
+      }
+      .demo-actor { font-size: 13px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent); margin: 0 0 4px; }
+      .demo-text { font-size: 20px; font-weight: 600; margin: 0; line-height: 1.35; }
+      .demo-sub { color: var(--ink-2); font-size: 14.5px; margin: 6px 0 0; }
+      .demo-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 12px; justify-content: center; }
+      .demo-chip {
+        font-size: 13px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px;
+        background: var(--chip-bg); color: var(--ink-2); transition: background 0.25s, color 0.25s;
+      }
+      .demo-chip.active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+      .demo-controls { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+      .demo-controls button {
+        appearance: none; font: inherit; font-size: 15px; cursor: pointer;
+        border-radius: 8px; padding: 8px 18px; border: 1px solid var(--line);
+        background: var(--surface); color: var(--ink);
+      }
+      .demo-controls button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+      .demo-note { margin-top: 14px; font-size: 15px; }
+
+      /* Roster */
+      .roster { display: flex; flex-wrap: wrap; gap: 10px; }
+      .member {
+        background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+        padding: 10px 14px; box-shadow: var(--shadow); flex: 1 1 200px;
+      }
+      .member .who { font-weight: 700; font-size: 15.5px; }
+      .member .role { color: var(--ink-2); font-size: 13.5px; }
+      .member .verified { color: var(--accent); font-weight: 700; font-size: 13px; }
+      .member code {
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 12.5px;
+        background: var(--surface-2); border-radius: 4px; padding: 1px 6px;
+      }
+
+      footer.page { margin-top: 40px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--ink-2); font-size: 14.5px; }
+      footer.page p { margin: 0 0 6px; }
+
+      @media (max-width: 560px) {
+        h1 { font-size: 25px; }
+        .banner p { font-size: 15.5px; }
+        .demo-text { font-size: 18px; }
+        .stat { min-width: 130px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .demo-chip { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="banner" role="note">
+      <div class="banner-inner">
+        <span class="tag">Read this first</span>
+        <p>This is a status board, NOT a live feed. Agents never message each other directly. Roy is the courier via paste. A task is only “in progress” when Roy has actually handed a packet to an agent and is awaiting its return. Nothing here is live telemetry, and nothing is simulated.</p>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <header class="page">
+        <h1>Agent Task Queue Board</h1>
+        <p class="sub">Roy’s Agent Ecosystem · Snapshot dated 2026-10-25</p>
+        <div class="summary" aria-label="Queue summary">
+          <div class="stat"><b>0</b><span>actively running — no agent is working right now</span></div>
+          <div class="stat"><b>6</b><span>waiting / blocked / assigned — decisions or instructions owed</span></div>
+          <div class="stat"><b>1</b><span>done — verified and delivered</span></div>
+        </div>
+      </header>
+
+      <section class="approvals" aria-labelledby="approvals-h">
+        <h2 id="approvals-h">Approve or deny — in chat, not by clicking this page</h2>
+        <p>Clicking anything on this GitHub Pages page does <b>NOT</b> approve, deny, or message any agent. This is a static page — a click here reaches no one, and Muse cannot see it.</p>
+        <p>To approve or deny, reply to Muse in chat. Muse will ask each pending decision with Approve / Deny tap options, record your exact answer, and only then move the card and file the note.</p>
+        <p>An approval covers only the exact item you named. Nothing spends, sends, posts, files, or is dispatched on a general yes.</p>
+        <h3>Pending approvals</h3>
+        <ul class="approval-list">
+          <li>
+            <p class="ap-title">a) Queue board header count fix</p>
+            <p class="ap-status"><b>Status:</b> Pending Roy’s decision. Approve to change the header count from 5 to 6, or Deny to leave it as-is (with the mismatch noted). The header on this page now shows 6, matching the seven cards below: 1 Done, 3 Awaiting Roy decision, 1 Blocked / Not dispatched, 2 Assigned.</p>
+          </li>
+          <li>
+            <p class="ap-title">b) Copilot role</p>
+            <p class="ap-status"><b>Status:</b> Awaiting Roy decision (see card COPILOT-EVAL-2026-10-25). Approve the new title “Task Analysis, Planning, and Quality Assurance Agent” and reviewer routing, or Deny and file the evaluation only, role unchanged.</p>
+          </li>
+          <li>
+            <p class="ap-title">c) Flagged Gemini dispatch — three orders, 2026-10-25T06:49:00Z</p>
+            <p class="ap-status"><b>Status:</b> Blocked / Not dispatched (see card DISPATCH-2026-10-25-0649Z). Approve to re-issue any order properly as A-01, or Deny / discard all three.</p>
+          </li>
+          <li>
+            <p class="ap-title">d) Coordination visual 4th example</p>
+            <p class="ap-status"><b>Status:</b> Awaiting Roy decision (see card COORD-VIS-4TH-EXAMPLE). Approve adding Hotel Brendle as a 4th example, or Deny and keep the visual as-is.</p>
+          </li>
+          <li>
+            <p class="ap-title">e) Check-in History filing</p>
+            <p class="ap-status"><b>Status:</b> Awaiting Roy decision (see card CHECKIN-HISTORY-FILING). Approve filing in Drive Check-ins + GitHub check-ins/, or Deny and keep it as chat reference only.</p>
+          </li>
+          <li>
+            <p class="ap-title">f) GitHub Pages culmination — this deployment itself</p>
+            <p class="ap-status"><b>Status:</b> Pending Roy’s decision. This is the deployment that brings everything together on GitHub Pages: the dashboard as home, with the coordination visual and this queue board as additional pages. Approve in chat before Muse pushes, or Deny to hold.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="how-h">
+        <h2 id="how-h">How to read this board</h2>
+        <p class="lede">Every task sits in exactly one stage. A stage only changes when a real packet moves — see the rule box below.</p>
+        <div class="pipeline">
+          <div class="stage-row">
+            <span class="stage-num">1</span>
+            <div><h3>Assigned</h3><p>A-01 has briefed the task, but it has not yet been handed to an agent.</p></div>
+          </div>
+          <div class="arrow" aria-hidden="true">↓</div>
+          <div class="stage-row">
+            <span class="stage-num">2</span>
+            <div><h3>With agent via Roy</h3><p>Roy pasted the packet into the agent’s own chat and is awaiting its return. This is the only stage that means an agent is actually working.</p></div>
+          </div>
+          <div class="arrow" aria-hidden="true">↓</div>
+          <div class="stage-row">
+            <span class="stage-num">3</span>
+            <div><h3>Returned to A-01</h3><p>The agent’s reply has been pasted back to A-01 and is awaiting verification.</p></div>
+          </div>
+          <div class="arrow" aria-hidden="true">↓</div>
+          <div class="stage-row">
+            <span class="stage-num">4</span>
+            <div><h3>Verifying</h3><p>A-01 is checking the returned work against the record.</p></div>
+          </div>
+          <div class="arrow" aria-hidden="true">↓</div>
+          <div class="stage-row">
+            <span class="stage-num">5</span>
+            <div><h3>Awaiting Roy decision</h3><p>The task needs Roy’s yes before anything else happens.</p></div>
+          </div>
+          <div class="arrow" aria-hidden="true">↓</div>
+          <div class="stage-row">
+            <span class="stage-num">6</span>
+            <div><h3>Done</h3><p>Verified and delivered.</p></div>
+          </div>
+          <div class="arrow" aria-hidden="true">· · ·</div>
+          <div class="stage-row blocked">
+            <span class="stage-num">!</span>
+            <div><h3>Blocked / Not dispatched</h3><p>A separate lane: the task was flagged and is awaiting Roy’s instruction. It is not in the pipeline and no agent has it.</p></div>
+          </div>
+        </div>
+        <div class="rule-box">
+          <b>How a task moves</b>
+          Only Roy moving a packet, or A-01 verifying a returned packet, changes a stage. Clicking a card does NOT message an agent and does NOT change real status.
+        </div>
+      </section>
+
+      <section aria-labelledby="queue-h">
+        <h2 id="queue-h">The queue</h2>
+        <p class="lede">Seven items, seeded from the real record on 2026-10-25. Tap a card to expand its full detail — expanding a card only shows more text; it changes nothing.</p>
+
+        <div class="filters">
+          <div class="filter-group" role="group" aria-label="Filter by stage">
+            <span class="flabel">Stage</span>
+            <button class="chip" data-stage-filter="all" aria-pressed="true">All stages</button>
+            <button class="chip" data-stage-filter="assigned" aria-pressed="false">Assigned</button>
+            <button class="chip" data-stage-filter="await" aria-pressed="false">Awaiting Roy decision</button>
+            <button class="chip" data-stage-filter="blocked" aria-pressed="false">Blocked / Not dispatched</button>
+            <button class="chip" data-stage-filter="done" aria-pressed="false">Done</button>
+          </div>
+          <div class="filter-group" role="group" aria-label="Filter by agent">
+            <span class="flabel">Agent</span>
+            <button class="chip" data-agent-filter="all" aria-pressed="true">All</button>
+            <button class="chip" data-agent-filter="a01" aria-pressed="false">A-01</button>
+            <button class="chip" data-agent-filter="a02" aria-pressed="false">A-02</button>
+            <button class="chip" data-agent-filter="a03" aria-pressed="false">A-03</button>
+            <button class="chip" data-agent-filter="a04" aria-pressed="false">A-04</button>
+            <button class="chip" data-agent-filter="a05" aria-pressed="false">A-05</button>
+            <button class="chip" data-agent-filter="roy" aria-pressed="false">Roy</button>
+          </div>
+        </div>
+
+        <div class="cards" id="cards">
+          <!-- a) HB-NRHP -->
+          <article class="card" data-stage="done" data-agents="a01 a02 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">HB-NRHP-2026-10-25</span>
+                <span class="badge done">Done</span>
+              </span>
+              <h3>Hotel Brendle national recognition — next-steps document</h3>
+              <span class="agent-line">A-02 @Copilot (research) · A-01 @Muse (document)</span>
+              <p class="now"><b>Right now:</b> Research summary returned via Roy, verified by A-01 against the Oct 19 dossier. Single-page PDF delivered 2026-10-25.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Research summary returned via Roy, verified by A-01 against the Oct 19 dossier, single-page PDF delivered 2026-10-25.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — document delivered.</dd></div>
+                <div><dt>Next action</dt><dd>None, unless Roy starts the next step (owner consent). Owner: Roy, if he chooses to proceed.</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- b) Copilot role evaluation -->
+          <article class="card" data-stage="await" data-agents="a02 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">COPILOT-EVAL-2026-10-25</span>
+                <span class="badge await">Awaiting Roy decision</span>
+              </span>
+              <h3>Copilot role evaluation</h3>
+              <span class="agent-line">A-02 @Copilot · code word IRONWOOD</span>
+              <p class="now"><b>Right now:</b> Evaluation pasted 2026-10-25 — fit 8.5/10, strengths in analysis and documentation; limits: no persistent state, no direct agent contact.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Evaluation pasted 2026-10-25 (fit 8.5/10, strengths analysis/documentation, limits: no persistent state, no direct agent contact). Proposal NOT adopted: rename A-02 to “Task Analysis, Planning, and Quality Assurance Agent” and use it as reviewer.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — evaluation received and read.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — file only, or adopt the title/routing?</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- c) MCP Gateway / Gemini dispatch -->
+          <article class="card" data-stage="blocked" data-agents="a02 a03 a04 a05 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">DISPATCH-2026-10-25-0649Z</span>
+                <span class="badge blocked">Blocked / Not dispatched</span>
+              </span>
+              <h3>MCP Gateway / Gemini dispatch — three orders, none sent</h3>
+              <span class="agent-line">Named in the dispatch: A-05 @Grok (OBSIDIAN) · A-02 @Copilot (wgmesh telemetry) · A-04 @ChatGPT (addressing audit) · relayed via A-03 @Gemini</span>
+              <p class="now"><b>Right now:</b> Flagged by A-01 and held. No agent has been given this work.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Flagged by A-01 — no record A-01 issued it; the 2026-10-25T06:49:00Z timestamp predates Grok’s verification; no central ledger exists; the wgmesh coding gate is not cleared. The packet bundled three orders: an MCP Gateway brief to A-05, wgmesh telemetry review to A-02, and a cross-agent addressing audit to A-04.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — A-01 flagged the dispatch; nothing dispatched.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — discard it, or have A-01 re-issue a proper order?</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- d) Dashboard v2 push -->
+          <article class="card" data-stage="assigned" data-agents="a01">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">DASH-V2-PAGES-PUSH</span>
+                <span class="badge assigned">Assigned</span>
+              </span>
+              <h3>Dashboard v2 photo / 3×3 push to GitHub Pages</h3>
+              <span class="agent-line">A-01 @Muse — A-01’s own work, not an external agent</span>
+              <p class="now"><b>Right now:</b> Optimized export ready (256×256 Roy photo, 14,530 bytes, shared asset, true 3×3 panels) — not yet pushed.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Optimized export ready (256×256 Roy photo, 14,530 bytes, shared asset, true 3×3 panels). The previous push failed on the 128 KB argument limit before optimization; the optimized version has NOT yet been pushed. Live Pages showing OBSIDIAN / Grok Verified has also NOT yet been independently re-verified.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — optimized export prepared.</dd></div>
+                <div><dt>Next action</dt><dd>A-01 — push to GitHub Pages and re-verify live.</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- e) Coordination visual 4th example -->
+          <article class="card" data-stage="await" data-agents="a01 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">COORD-VIS-4TH-EXAMPLE</span>
+                <span class="badge await">Awaiting Roy decision</span>
+              </span>
+              <h3>Coordination visual — add a 4th example?</h3>
+              <span class="agent-line">agent-coordination-in-motion · A-01 @Muse</span>
+              <p class="now"><b>Right now:</b> Visual built and audit-passed with 3 examples only, because the Hotel Brendle task was assigned after the build started.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Visual built and audit-passed with 3 examples only, because the Hotel Brendle task was assigned after the build started.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — visual delivered with 3 examples.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — add Hotel Brendle as the 4th example, or keep the visual as-is?</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- f) Check-in History filing -->
+          <article class="card" data-stage="await" data-agents="a01 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">CHECKIN-HISTORY-FILING</span>
+                <span class="badge await">Awaiting Roy decision</span>
+              </span>
+              <h3>Check-in History filing</h3>
+              <span class="agent-line">A-01 @Muse · all five agents’ check-in record</span>
+              <p class="now"><b>Right now:</b> History document verified 2026-10-25 — matches Registry v2, roster 5/5 verified, sources in GitHub.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>History document verified 2026-10-25, matches Registry v2, 5/5 verified, sources in GitHub.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — history verified against the record.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — file it in Drive Check-ins + GitHub check-ins/, or keep as chat reference only?</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- g) Deploy coordination visual to Pages -->
+          <article class="card" data-stage="assigned" data-agents="a01 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">COORD-VIS-PAGES-DEPLOY</span>
+                <span class="badge assigned">Assigned</span>
+              </span>
+              <h3>Deploy coordination visual to GitHub Pages as a second page</h3>
+              <span class="agent-line">A-01 @Muse — A-01’s own work</span>
+              <p class="now"><b>Right now:</b> Planned, not done.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Planned, not done.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — deployment proposed.</dd></div>
+                <div><dt>Next action</dt><dd>A-01 — after Roy confirms he wants it on Pages.</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <p class="no-results" id="noResults" hidden>No cards match both filters. Clear a filter to see more of the queue.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="demo-h">
+        <h2 id="demo-h">When an agent is doing something</h2>
+        <p class="lede">This is what the workflow looks like when a task is genuinely moving. It is an illustration of the process — not a picture of anything happening now.</p>
+        <div class="demo">
+          <span class="demo-tag">Demonstration — not live</span>
+          <div class="demo-stage" aria-live="polite">
+            <p class="demo-actor" id="demoActor">Roy · Tier 0</p>
+            <p class="demo-text" id="demoText">Roy assigns the task</p>
+            <p class="demo-sub" id="demoSub">Everything starts with Roy. No agent gives itself work.</p>
+          </div>
+          <div class="demo-chips" id="demoChips" aria-hidden="true"></div>
+          <div class="demo-controls">
+            <button class="primary" id="demoPlay" type="button">Pause</button>
+            <button id="demoReplay" type="button">Replay</button>
+          </div>
+          <p class="demo-note">This animation shows the workflow. It does not show a real agent working right now, because no agent is working right now. When a real task moves to “With agent via Roy”, its card will say so, with the date Roy handed it over.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="roster-h">
+        <h2 id="roster-h">Roster — 5/5 verified</h2>
+        <p class="lede">The agents on this board. Verification means each one checked in with A-01, acknowledged Roy as Tier 0, and confirmed the shared-context rules.</p>
+        <div class="roster">
+          <div class="member"><div class="who">Roy</div><div class="role">Tier 0 — operator, courier, final approval</div><div class="verified">✓ Authority</div></div>
+          <div class="member"><div class="who">A-01 @Muse</div><div class="role">Coordinator &amp; Context-of-Record</div><div class="verified">✓ Verified</div></div>
+          <div class="member"><div class="who">A-02 @Copilot</div><div class="role">Task Agent / Analyst · <code>IRONWOOD</code></div><div class="verified">✓ Verified 2026-10-24</div></div>
+          <div class="member"><div class="who">A-03 @Gemini</div><div class="role">Specialist · <code>JUNIPER</code></div><div class="verified">✓ Verified 2026-10-24</div></div>
+          <div class="member"><div class="who">A-04 @ChatGPT</div><div class="role">Specialist · <code>SUNSTONE</code> · reached via Roy paste</div><div class="verified">✓ Verified 2026-10-24</div></div>
+          <div class="member"><div class="who">A-05 @Grok</div><div class="role">Specialist · <code>OBSIDIAN</code></div><div class="verified">✓ Verified 2026-10-25</div></div>
+        </div>
+      </section>
+
+      <footer class="page">
+        <p>Updated by A-01 @Muse only when a real packet moves. To move a task, tell Muse in chat: “I pasted X to Y” — or paste the returned reply.</p>
+        <p>Last seeded update: 2026-10-25.</p>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        /* Card expand / collapse — display only, changes no status */
+        var heads = document.querySelectorAll(".card-head");
+        heads.forEach(function (head) {
+          head.addEventListener("click", function () {
+            var card = head.closest(".card");
+            var open = card.classList.toggle("open");
+            head.setAttribute("aria-expanded", open ? "true" : "false");
+          });
+        });
+
+        /* Filters — stage AND agent must both match */
+        var stageFilter = "all";
+        var agentFilter = "all";
+        var cards = Array.prototype.slice.call(document.querySelectorAll(".card"));
+        var noResults = document.getElementById("noResults");
+
+        function applyFilters() {
+          var visible = 0;
+          cards.forEach(function (card) {
+            var stageOk = stageFilter === "all" || card.getAttribute("data-stage") === stageFilter;
+            var agents = (card.getAttribute("data-agents") || "").split(" ");
+            var agentOk = agentFilter === "all" || agents.indexOf(agentFilter) !== -1;
+            var show = stageOk && agentOk;
+            card.style.display = show ? "" : "none";
+            if (show) visible++;
+          });
+          noResults.hidden = visible !== 0;
+        }
+
+        function wireChips(attr, set) {
+          var chips = document.querySelectorAll("[" + attr + "]");
+          chips.forEach(function (chip) {
+            chip.addEventListener("click", function () {
+              chips.forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+              chip.setAttribute("aria-pressed", "true");
+              set(chip.getAttribute(attr));
+              applyFilters();
+            });
+          });
+        }
+        wireChips("data-stage-filter", function (v) { stageFilter = v; });
+        wireChips("data-agent-filter", function (v) { agentFilter = v; });
+
+        /* Demonstration animation — labelled demo, drives nothing real */
+        var steps = [
+          { actor: "Roy · Tier 0", text: "Roy assigns the task", sub: "Everything starts with Roy. No agent gives itself work." },
+          { actor: "A-01 @Muse · Coordinator", text: "A-01 briefs the task", sub: "Muse writes the packet: the job, the context, the constraints, and how it will be checked." },
+          { actor: "Roy · Courier", text: "Roy carries the packet by paste", sub: "There is no direct agent-to-agent channel. Roy pastes the packet into the agent’s own chat." },
+          { actor: "The agent · In its own chat", text: "The agent works in its own chat", sub: "This is the only moment a task is truly “in progress” — and only Roy can see it happen." },
+          { actor: "Roy · Courier", text: "The reply returns via Roy", sub: "Roy pastes the agent’s reply back to A-01. Nothing arrives on its own." },
+          { actor: "A-01 @Muse · Coordinator", text: "A-01 verifies the reply", sub: "Muse checks the returned work against the record before anything is filed or used." },
+          { actor: "Roy · Tier 0", text: "Roy approves", sub: "Roy’s yes is the gate. Nothing is adopted, sent, or published without it." },
+          { actor: "A-01 @Muse · Record", text: "A dated note is filed", sub: "The outcome joins the shared record with its date, so the next check-in starts from fact." }
+        ];
+        var chipsBox = document.getElementById("demoChips");
+        steps.forEach(function (s, i) {
+          var el = document.createElement("span");
+          el.className = "demo-chip";
+          el.textContent = (i + 1) + ". " + s.text;
+          chipsBox.appendChild(el);
+        });
+        var chipEls = chipsBox.querySelectorAll(".demo-chip");
+        var actorEl = document.getElementById("demoActor");
+        var textEl = document.getElementById("demoText");
+        var subEl = document.getElementById("demoSub");
+        var playBtn = document.getElementById("demoPlay");
+        var replayBtn = document.getElementById("demoReplay");
+        var idx = 0, timer = null, playing = false;
+        var STEP_MS = 2400;
+        var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        function render() {
+          var s = steps[idx];
+          actorEl.textContent = s.actor;
+          textEl.textContent = s.text;
+          subEl.textContent = s.sub;
+          chipEls.forEach(function (c, i) { c.classList.toggle("active", i === idx); });
+        }
+        function stop() {
+          playing = false;
+          if (timer) { clearInterval(timer); timer = null; }
+          playBtn.textContent = "Play";
+        }
+        function start() {
+          if (reduceMotion) { render(); return; }
+          playing = true;
+          playBtn.textContent = "Pause";
+          timer = setInterval(function () {
+            idx = (idx + 1) % steps.length;
+            render();
+          }, STEP_MS);
+        }
+        playBtn.addEventListener("click", function () { playing ? stop() : start(); });
+        replayBtn.addEventListener("click", function () {
+          idx = 0; render();
+          if (!reduceMotion) { stop(); start(); }
+        });
+        render();
+        if (reduceMotion) { playBtn.textContent = "Play"; }
+        else { start(); }
+      })();
+    </script>
+  </body>
+</html>
