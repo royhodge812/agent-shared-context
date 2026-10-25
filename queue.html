@@ -277,7 +277,7 @@
         <p class="sub">Roy’s Agent Ecosystem · Snapshot dated 2026-10-25</p>
         <div class="summary" aria-label="Queue summary">
           <div class="stat"><b>0</b><span>actively running — no agent is working right now</span></div>
-          <div class="stat"><b>5</b><span>waiting / blocked / assigned — decisions or instructions owed</span></div>
+          <div class="stat"><b>9</b><span>waiting / blocked / assigned — decisions or instructions owed</span></div>
           <div class="stat"><b>2</b><span>done — verified and delivered</span></div>
         </div>
       </header>
@@ -291,7 +291,7 @@
         <ul class="approval-list">
           <li>
             <p class="ap-title">a) Queue board header count fix</p>
-            <p class="ap-status"><b>Status:</b> Pending Roy’s decision. Approve to change the header count from 5 to 6, or Deny to leave it as-is (with the mismatch noted). The header on this page now shows 5 waiting / blocked / assigned and 2 done, matching the seven cards below: 2 Done, 2 Awaiting Roy decision, 0 Blocked / Not dispatched, 3 Assigned.</p>
+            <p class="ap-status"><b>Status:</b> Resolved / Superseded — this item is no longer pending. The header has since moved through 6, then 5, and now shows 9 waiting / blocked / assigned and 2 done, matching the eleven cards below: 2 Done, 2 Awaiting Roy decision, 0 Blocked / Not dispatched, 7 Assigned.</p>
           </li>
           <li>
             <p class="ap-title">b) Copilot role</p>
@@ -308,6 +308,10 @@
           <li>
             <p class="ap-title">e) Check-in History filing</p>
             <p class="ap-status"><b>Status:</b> Awaiting Roy decision (see card CHECKIN-HISTORY-FILING). Approve filing in Drive Check-ins + GitHub check-ins/, or Deny and keep it as chat reference only.</p>
+          </li>
+          <li>
+            <p class="ap-title">Day 1 assignments — approved 2026-10-25</p>
+            <p class="ap-status"><b>Status:</b> Approved by Roy 2026-10-25. The four Day 1 assignments (DAY1-QA, DAY1-GAP, DAY1-DEV, DAY1-STRESS — see cards below) are Assigned pending Roy pasting their packets to each agent. Agents are NOT working until Roy pastes; returns are to be reviewed raw by Roy before any polish or filing.</p>
           </li>
           <li>
             <p class="ap-title">f) GitHub Pages culmination — this deployment itself</p>
@@ -363,7 +367,7 @@
 
       <section aria-labelledby="queue-h">
         <h2 id="queue-h">The queue</h2>
-        <p class="lede">Seven items, seeded from the real record on 2026-10-25. Tap a card to expand its full detail — expanding a card only shows more text; it changes nothing.</p>
+        <p class="lede">Eleven items, seeded from the real record on 2026-10-25. Tap a card to expand its full detail — expanding a card only shows more text; it changes nothing.</p>
 
         <div class="filters">
           <div class="filter-group" role="group" aria-label="Filter by stage">
@@ -530,6 +534,90 @@
                 <div><dt>Detail</dt><dd>Planned, not done.</dd></div>
                 <div><dt>Last real update</dt><dd>2026-10-25 — deployment proposed.</dd></div>
                 <div><dt>Next action</dt><dd>A-01 — after Roy confirms he wants it on Pages.</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- Day 1 — QA -->
+          <article class="card" data-stage="assigned" data-agents="a02 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">DAY1-QA-2026-10-25</span>
+                <span class="badge assigned" style="white-space: normal;">Assigned (A-01 briefed, not yet handed to agent via Roy)</span>
+              </span>
+              <h3>Day 1 — QA the single-page summary + Queue Board</h3>
+              <span class="agent-line">A-02 @Copilot · Task Analysis, Planning, and Quality Assurance Agent · code word IRONWOOD</span>
+              <p class="now"><b>Right now:</b> Approved by Roy 2026-10-25 and Assigned. Packet delivered to Roy for pasting — A-02 @Copilot is NOT working on this until Roy pastes it.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Day 1 assignment approved by Roy 2026-10-25. Task: QA the single-page summary and this Queue Board — check every name, date, code word, and count against the record, and list what fails versus what is merely uncertain. Deliverable: a checked QA note. Packet delivered to Roy for pasting; the agent is NOT working until Roy pastes it. Returns are to be reviewed raw by Roy before any polish or filing.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — approved by Roy; packet delivered to Roy for pasting.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — paste the packet to A-02 @Copilot, then return its raw reply to A-01 for verification. Roy reviews the raw return before any polish or filing.</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- Day 1 — NRHP gaps -->
+          <article class="card" data-stage="assigned" data-agents="a03 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">DAY1-GAP-2026-10-25</span>
+                <span class="badge assigned" style="white-space: normal;">Assigned (A-01 briefed, not yet handed to agent via Roy)</span>
+              </span>
+              <h3>Day 1 — Hotel Brendle NRHP gaps</h3>
+              <span class="agent-line">A-03 @Gemini · Specialist · code word JUNIPER</span>
+              <p class="now"><b>Right now:</b> Approved by Roy 2026-10-25 and Assigned. Packet delivered to Roy for pasting — A-03 @Gemini is NOT working on this until Roy pastes it.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Day 1 assignment approved by Roy 2026-10-25. Task: synthesize what would settle the Germania tension and the 36 vs. 165 room-count tension — what source, what shot, what record settles each, in priority order. Deliverable: a gap-closing plan, not a new nomination draft. Packet delivered to Roy for pasting; the agent is NOT working until Roy pastes it. Returns are to be reviewed raw by Roy before any polish or filing.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — approved by Roy; packet delivered to Roy for pasting.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — paste the packet to A-03 @Gemini, then return its raw reply to A-01 for verification. Roy reviews the raw return before any polish or filing.</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- Day 1 — DEV draft -->
+          <article class="card" data-stage="assigned" data-agents="a04 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">DAY1-DEV-2026-10-25</span>
+                <span class="badge assigned" style="white-space: normal;">Assigned (A-01 briefed, not yet handed to agent via Roy)</span>
+              </span>
+              <h3>Day 1 — DEV “Fixing the Brendle” draft, not posted</h3>
+              <span class="agent-line">A-04 @ChatGPT · Specialist · code word SUNSTONE</span>
+              <p class="now"><b>Right now:</b> Approved by Roy 2026-10-25 and Assigned. Packet delivered to Roy for pasting — A-04 @ChatGPT is NOT working on this until Roy pastes it.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Day 1 assignment approved by Roy 2026-10-25. Task: draft the first “Fixing the Brendle” DEV build-log from the cart-and-dumpster story, told humbly, ending with a reader first step. Deliverable: a copy-ready draft for Roy’s review only — not posted. Packet delivered to Roy for pasting; the agent is NOT working until Roy pastes it. Returns are to be reviewed raw by Roy before any polish or filing.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — approved by Roy; packet delivered to Roy for pasting.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — paste the packet to A-04 @ChatGPT, then return its raw reply to A-01 for verification. Roy reviews the raw return before any polish or filing. Nothing is posted without Roy’s yes on that specific post.</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- Day 1 — Vapor Nodes stress-test -->
+          <article class="card" data-stage="assigned" data-agents="a05 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">DAY1-STRESS-2026-10-25</span>
+                <span class="badge assigned" style="white-space: normal;">Assigned (A-01 briefed, not yet handed to agent via Roy)</span>
+              </span>
+              <h3>Day 1 — Vapor Nodes stress-test</h3>
+              <span class="agent-line">A-05 @Grok · Specialist · code word OBSIDIAN</span>
+              <p class="now"><b>Right now:</b> Approved by Roy 2026-10-25 and Assigned. Packet delivered to Roy for pasting — A-05 @Grok is NOT working on this until Roy pastes it.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Day 1 assignment approved by Roy 2026-10-25. Task: stress-test the Vapor Nodes partnership plan as it stands — pricing suspended, $0.14/kWh actual electricity, hotel agreement unsigned, Spectrum and siting TBD. Deliverable: verdict first — holds / holds with fixes / does not hold — with fixes in priority order. Packet delivered to Roy for pasting; the agent is NOT working until Roy pastes it. Returns are to be reviewed raw by Roy before any polish or filing.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — approved by Roy; packet delivered to Roy for pasting.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — paste the packet to A-05 @Grok, then return its raw reply to A-01 for verification. Roy reviews the raw return before any polish or filing.</dd></div>
               </dl>
             </div>
           </article>
