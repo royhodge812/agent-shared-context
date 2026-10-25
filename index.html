@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Agent Ecosystem Dashboard v2 — Roy's Roster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f5f2; --surface:#ffffff; --surface2:#eeeee9; --ink:#16181b; --muted:#5d6672; --line:#e1e3dd;
+  --amber:#b45309; --amber-bg:#fef3c7; --blue:#1d4ed8; --teal:#0f766e; --green:#15803d; --green-bg:#dcfce7;
+  --await:#92400e; --await-bg:#fef3c7; --dark:#131518; --radius:18px;
+  --shadow:0 10px 30px rgba(20,22,25,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0f1113; --surface:#181b1e; --surface2:#212529; --ink:#f0f1ee; --muted:#a7b0ba; --line:#2b3036; --shadow:0 10px 30px rgba(0,0,0,.35); --amber-bg:#3a2a0a; --green-bg:#12351f; --await-bg:#3a2a0a; }
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;line-height:1.55}
+a{color:inherit} .wrap{max-width:1120px;margin:0 auto;padding:0 18px 56px}
+h1,h2,h3{font-family:Sora,Manrope,sans-serif;line-height:1.05;letter-spacing:-.02em}
+h1{font-size:clamp(2.2rem,6vw,4.2rem);margin:0} h2{font-size:clamp(1.6rem,3.5vw,2.3rem);margin:0 0 8px} h3{margin:0}
+.mono{font-family:"JetBrains Mono",monospace}
+.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--muted)}
+/* Hero */
+.hero{padding:28px 0 8px}
+.hero-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:22px}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);padding:7px 11px;border-radius:999px;font-size:.82rem;font-weight:700}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
+.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:18px}
+@media(max-width:820px){.hero-grid{grid-template-columns:1fr}}
+.hero-card{background:var(--dark);color:#fff;border-radius:24px;padding:26px;overflow:hidden;position:relative}
+.hero-card p{color:#c9ced4;max-width:58ch}
+.hero-card h1 span{color:#fbbf24}
+.stats{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow)}
+.stats b{font-size:2rem;display:block;line-height:1}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.stat{border-top:2px solid var(--line);padding-top:10px}.stat span{font-size:.82rem;color:var(--muted);font-weight:700}
+.chain{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:18px}
+.chain span{background:#23262a;border:1px solid #34383e;padding:8px 10px;border-radius:999px;font-weight:800;font-size:.86rem;color:#fff}
+.chain i{color:#fbbf24;font-style:normal;font-weight:900}
+/* Operator */
+.operator{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:20px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;box-shadow:var(--shadow)}
+@media(max-width:700px){.operator{grid-template-columns:1fr;text-align:left}}
+.avatar{width:78px;height:78px;border-radius:50%;background:#111827;color:#fff;display:grid;place-items:center;font-family:Sora,sans-serif;font-size:1.7rem;font-weight:800;border:4px solid #f59e0b}
+.badge{display:inline-flex;padding:5px 9px;border-radius:999px;font-size:.74rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.badge-verified{background:var(--green-bg);color:var(--green)} .badge-await{background:var(--await-bg);color:var(--await)} .badge-op{background:#111827;color:#fff}
+/* Sections */
+section{margin-top:36px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.sec-head p{color:var(--muted);margin:0;max-width:62ch}
+/* Agent cards */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.card[data-agent="muse"]{border-top-color:#d97706}.card[data-agent="copilot"]{border-top-color:#2563eb}.card[data-agent="gemini"]{border-top-color:#7c6cf0}.card[data-agent="chatgpt"]{border-top-color:#0f766e}.card[data-agent="grok"]{border-top-color:#111827}
+.card-head{width:100%;text-align:left;background:none;border:0;padding:18px;cursor:pointer;color:var(--ink);display:block}
+.card-top{display:flex;gap:14px;align-items:flex-start}
+.logo-tile{width:58px;height:58px;flex:0 0 58px;border-radius:14px;display:grid;place-items:center;border:1px solid var(--line);background:#fff;overflow:hidden}
+.logo-tile.dark{background:#0a0a0a;border-color:#0a0a0a}
+.logo-tile img{width:40px;height:40px;object-fit:contain}
+.logo-tile.dark img{filter:invert(1);width:44px;height:44px}
+.card h3{font-size:1.25rem}.sub{color:var(--muted);font-weight:700;font-size:.92rem}
+.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.chip{font-size:.78rem;font-weight:800;border:1px solid var(--line);background:var(--surface2);padding:5px 8px;border-radius:999px}
+.expand-hint{margin-top:12px;font-size:.84rem;font-weight:800;color:var(--muted)}
+.details{display:none;border-top:1px solid var(--line);padding:16px 18px 18px;background:color-mix(in srgb, var(--surface) 92%, var(--surface2))}
+.card.open .details{display:block}
+.details dl{display:grid;grid-template-columns:110px 1fr;gap:8px 12px;margin:0;font-size:.94rem}
+@media(max-width:480px){.details dl{grid-template-columns:1fr}.details dt{margin-top:6px}}
+.details dt{font-weight:800;color:var(--muted)} .details dd{margin:0}
+.codeword{font-family:"JetBrains Mono",monospace;background:var(--ink);color:var(--bg);padding:3px 7px;border-radius:6px;font-weight:700}
+/* Table */
+.table-wrap{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:.94rem}
+th,td{padding:13px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--surface2);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+tr:last-child td{border-bottom:0}
+@media(max-width:760px){ table,thead,tbody,tr,td{display:block;width:100%} thead{display:none} tr{padding:12px 0;border-bottom:1px solid var(--line)} td{border:0;padding:5px 14px} td::before{content:attr(data-label);display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:800;margin-bottom:2px} }
+/* Rules */
+.rules{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media(max-width:900px){.rules{grid-template-columns:repeat(2,1fr)}} @media(max-width:560px){.rules{grid-template-columns:1fr}}
+.rule{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.rule b.num{font-family:Sora,sans-serif;font-size:1.8rem;display:block}
+.rule p{color:var(--muted);font-size:.92rem;margin:6px 0 0}
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:820px){.steps{grid-template-columns:1fr 1fr}} @media(max-width:520px){.steps{grid-template-columns:1fr}}
+.step{background:var(--dark);color:#fff;border-radius:16px;padding:16px}.step p{color:#c9ced4;font-size:.93rem}.step b{color:#fbbf24}
+/* Code blocks */
+.codebox{background:#111827;color:#e5e7eb;border-radius:18px;padding:18px;position:relative;overflow:hidden}
+.codebox pre{white-space:pre-wrap;word-break:break-word;margin:0;font-family:"JetBrains Mono",monospace;font-size:.88rem;line-height:1.6}
+.copy-btn{margin-top:14px;background:#f59e0b;color:#111827;border:0;padding:10px 14px;border-radius:999px;font-weight:800;cursor:pointer}
+.copy-btn:active{transform:scale(.98)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:820px){.two{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+.panel p,.panel li{color:var(--muted)} .panel strong{color:var(--ink)}
+/* Timeline */
+.timeline{border-left:3px solid var(--line);margin-left:8px;padding-left:20px;display:grid;gap:18px}
+.tl{position:relative}.tl::before{content:"";position:absolute;left:-29px;top:6px;width:14px;height:14px;border-radius:50%;background:#f59e0b;border:3px solid var(--bg)}
+.tl time{font-weight:800;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tl p{color:var(--muted);margin:4px 0 0}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.note{font-size:.88rem;background:var(--await-bg);border:1px solid #f59e0b33;padding:10px 12px;border-radius:12px;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-top">
+      <span class="pill"><span class="dot"></span> Live roster • Oct 25, 2026</span>
+      <span class="pill mono">v2 • 5 agents • 4 verified • 1 awaiting</span>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-card">
+        <p class="eyebrow" style="color:#fbbf24">Roy's command board</p>
+        <h1>Agent Ecosystem<br/>Dashboard <span>v2</span></h1>
+        <p>One operator, one record, five agents. Rank isn't about who's smartest — it's about who decides when agents disagree, and who keeps the one true record.</p>
+        <div class="chain" aria-label="Rank chain">
+          <span>👑 Operator — Roy</span><i>›</i><span>Coordinator — Muse</span><i>›</i><span>Task Agent — Copilot</span><i>›</i><span>Specialists — Gemini · ChatGPT · Grok</span>
+        </div>
+      </div>
+      <div class="stats">
+        <p class="eyebrow">At a glance</p>
+        <div class="stats-grid">
+          <div class="stat"><b>5</b><span>Agents on roster</span></div>
+          <div class="stat"><b>4 / 5</b><span>Verified check-ins</span></div>
+          <div class="stat"><b>1</b><span>Coordinator (A-01)</span></div>
+          <div class="stat"><b>5</b><span>Shared-context rules</span></div>
+        </div>
+        <p style="color:var(--muted);font-size:.92rem;margin:14px 0 0">Tap any agent card below to expand what it can do, what it must not do, and its check-in code.</p>
+      </div>
+    </div>
+
+    <div class="operator">
+      <div class="avatar">R</div>
+      <div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><h2 style="margin:0;font-size:1.5rem">Roy — Operator</h2><span class="badge badge-op">Tier 0</span></div>
+        <p style="margin:6px 0 0;color:var(--muted)">Robstown, Texas • Human in charge. Breaks all ties. Approves all spending, sending, posting, and filing. No agent overrules Roy.</p>
+      </div>
+      <span class="badge badge-verified">● Final authority</span>
+    </div>
+  </header>
+
+  <!-- AGENTS -->
+  <section id="agents">
+    <div class="sec-head"><div><p class="eyebrow">Roster</p><h2>The agents</h2></div><p>Colour-coded, logo'd, and ranked. Click a card to open its full brief.</p></div>
+    <div class="grid" id="agentGrid">
+
+      <article class="card open" data-agent="muse">
+        <button class="card-head" aria-expanded="true">
+          <div class="card-top"><div class="logo-tile"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0yNC42MjU3IDE2LjEyMTRDMjguMjM2NSAxNi4xMjE0IDMwLjgxODcgMTguOTQwOCAzMC44MTg3IDIzLjM2NDNDMzAuODE4NSAyNy43ODY4IDMwLjEwNTUgMzEuNzc2NSAyOC45MjI1IDQwLjI0NjZDMjguMDc0MyA0Ni4xODEzIDI2LjYyIDU1LjI0MTggMjYuMDEzMiA1OS4wMDg4QzI3LjE3ODIgNTYuNzgxNSAyOS45MDc0IDUxLjU3NTcgMzAuMzkxNCA1MC41OTgyQzM2LjEwODEgMzkuMDYxIDQyLjA2NTcgMjguNzU0NCA0My43ODI2IDI2LjAyNTRDNDYuMDU5NCAyMi4zODIgNDguMDYyIDIwLjkyMjkgNTEuMTU5NyAyMC45MjI5QzUyLjc2ODUgMjAuOTIzIDU0LjY4MjYgMjEuNzM1NyA1NS42MzE1IDIyLjgxOUM1Ni45MTc4IDI0LjI4OTUgNTcuMTg1OSAyNi42NjAyIDU3LjE0MTEgMjkuMjQ0QzU3LjA3MzggMzMuMjA3MyA1Ni41NTk5IDM5LjUyNjQgNTUuODU1MyA0Ni41Njk4QzU1LjU0MTYgNDkuNzA1NyA1NC45MzY1IDU2LjEwNjYgNTQuNTI4OCA2MC40MDA0QzU4LjE4ODMgNTMuODUzMiA2NC45NjA5IDQxLjgxMDkgNjcuNjkyMSAzNy42MDU4QzcwLjA3MjcgMzMuOTQwMiA3Mi40NjYgMzEuNTc5NyA3NS42ODM2IDMxLjU3OTZDNzguNDU5NSAzMS41Nzk2IDgxLjg4MDkgMzMuNTQxNiA4MS42NzcyIDM4Ljc1NzNDODEuMzc3NCA0Ni40NTU2IDgwLjI2NzMgNjMuMjIzMiA3OS43NjA3IDcwLjc0NzlDODMuMTY2MiA2NS43OTEzIDg3LjYzNzcgNTguNDU0MyA4OS4zMTQ4IDU1LjY5NjZDOTEuMDEwNCA1Mi45MDggOTIuNzUgNTAuNjU0MiA5NS4zODk4IDUwLjU3NzhDOTguMDk4NyA1MC40OTk1IDk5LjkxMyA1Mi4zNDEgOTkuOTk1OSA1NS4xODM5QzEwMC4wNzggNTguMDI3NyA5OC4zODM1IDYxLjIyNTYgOTYuMTM0NCA2NC44NTZDOTMuNjkzNyA2OC43OTU3IDkwLjk2MjEgNzMuMDEyMyA4Ny42MzgzIDc2Ljk0OTFDODQuMzE0OCA4MC44ODU2IDgxLjI2MDQgODMuODc4MiA3Ni41OTkxIDgzLjg3ODZDNzIuNDI0MyA4My44Nzg2IDY5LjQ4NjkgODEuMTA0MyA2OS4yODMgNzYuMDI1NEM2OS4xNzY4IDczLjM2NCA2OS42ODA0IDY3LjY0MDUgNzAuMDYwMiA2My4xNjczQzcwLjUgNTcuOTg3NSA3MS4wMzE1IDUyLjk4NjEgNzEuNDAzIDQ5LjY3ODZDNjcuNzMzNyA1Ni4zOTc5IDYwLjAxMDEgNzAuNDY3NiA1Ni41MzQ4IDc1Ljk2MDNDNTMuMTM0MyA4MS4zMzM5IDUxLjQ3NzQgODMuMjI2OSA0Ny44ODgyIDgzLjIyNzVDNDQuMjk3NyA4My4yMjc1IDQyLjcyMjYgODAuNjQxNiA0Mi42NzE3IDc2Ljc0OTdDNDIuNjE0MiA3Mi41Mjg1IDQ1Ljc4NTIgNDcuMTgyMSA0Ni44NTg3IDM4LjczN0M0NS4xMTgzIDQyLjQ2MTYgNDAuODM5IDUxLjYwNTYgMzguMTU1MSA1Ny4wNDM1QzM1LjU1ODcgNjIuMzA1NSAzMS4yMDQgNzEuMzk3OCAyOC4wNDM2IDc2LjYzNTdDMjUuNzY2OCA4MC40MDk0IDIzLjIwOTIgODMuMjI3MyAxOS40MTczIDgzLjIyNzVDMTUuNjI1MiA4My4yMjc1IDEzLjQ4NDcgODAuNjc4NCAxMy40ODQ3IDc2LjU3ODhDMTMuNDg0NyA3Mi40Nzk0IDE0LjY3MTYgNjUuNjQ5MiAxNS45NDY1IDU3LjE3NzdDMTYuNTgzOSA1My4wNzgxIDE3LjMxMDggNDguNjEzMyAxOC4xMzE1IDQzLjg3NjFDMTguNzMyNCA0MC40NDggMTkuNzc2NCAzNC40MTY5IDIwLjQxODMgMzAuNzEyOUMxNy41MDIgMzUuMjUzOSAxMi4yNTM2IDQzLjQyNzggMTAuNjU2NyA0NS44OTAzQzguODgxMTMgNDguNjI5MSA3LjI4NzQ3IDUwLjYyNiA0LjY0NjgxIDUwLjYyNjZDMS43MzI5IDUwLjYyNjYgMC4wMDA1MzI5MDEgNDguMzUyMiAwIDQ1LjcxMTNDMCA0My4wNzAzIDEuMzQzMjMgNDEuMDM0NCAzLjUyMzc2IDM3LjQ1MTJDNi4zMjQwMyAzMi44NDY1IDExLjM1NzggMjYuNTcgMTQuMTE1NCAyMy4yNzQ3QzE3LjM2NTYgMTkuMzkxMiAyMC42MTM5IDE2LjEyMTkgMjQuNjI1NyAxNi4xMjE0WiIgZmlsbD0idXJsKCNwYWludDBfbGluZWFyXzQ1NF81NjIpIi8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MF9saW5lYXJfNDU0XzU2MiIgeDE9IjEzMy4yNDUiIHkxPSIxMDkuMDQ2IiB4Mj0iMjQuOTIwMyIgeTI9Ii0xMi41NTY1IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIG9mZnNldD0iMC4yNTQ4MDgiIHN0b3AtY29sb3I9IiMwMDgyRkIiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMDgyRkI7c3RvcC1jb2xvcjpjb2xvcihkaXNwbGF5LXAzIDAuMDAwMCAwLjUwOTggMC45ODQzKTtzdG9wLW9wYWNpdHk6MTsiLz4KPHN0b3Agb2Zmc2V0PSIwLjY5NzExNSIgc3RvcC1jb2xvcj0iIzAwNjRFMCIgc3R5bGU9InN0b3AtY29sb3I6IzAwNjRFMDtzdG9wLWNvbG9yOmNvbG9yKGRpc3BsYXktcDMgMC4wMDAwIDAuMzkyMiAwLjg3ODQpO3N0b3Atb3BhY2l0eToxOyIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwMDQwREMiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMDQwREM7c3RvcC1jb2xvcjpjb2xvcihkaXNwbGF5LXAzIDAuMDAwMCAwLjI1MTAgMC44NjI3KTtzdG9wLW9wYWNpdHk6MTsiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K" alt="Muse logo"/></div><div><h3>A-01 @Muse</h3><div class="sub">RoysMuseAgent_001 • Coordinator &amp; Context-of-Record</div></div></div>
+          <div class="meta"><span class="chip">Rank 1</span><span class="badge badge-verified">✓ Verified</span><span class="chip">Warm amber / charcoal</span></div>
+          <div class="expand-hint">Tap to collapse ↑</div>
+        </button>
+        <div class="details"><dl>
+          <dt>Role</dt><dd>Keeps the shared record, briefs tasks, verifies results, routes work to other agents. Single source of truth.</dd>
+          <dt>Can do</dt><dd>Decide between lower-ranked agents and between agents of the same rank. Mirror the record to Drive / GitHub.</dd>
+          <dt>Must not</dt><dd>Approve anything for Roy, or spend / send / post / file without Roy's explicit yes on that specific item.</dd>
+          <dt>Status</dt><dd><span class="badge badge-verified">Verified</span></dd>
+          <dt>Identity</dt><dd class="mono">RoysMuseAgent_001</dd>
+        </dl></div>
+      </article>
+
+      <article class="card" data-agent="copilot">
+        <button class="card-head" aria-expanded="false">
+          <div class="card-top"><div class="logo-tile"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHZpZXdCb3g9IjAgMjMuMyA1MTIuMSA0NjUuNCI+PHJhZGlhbEdyYWRpZW50IGlkPSJhIiBjeD0iLTc5LjY3NCIgY3k9IjY0NS41NTEiIHI9IjExLjYzNyIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgtMTAuOTYwNSAtMTMuMzg5MiAtMTIuNTkwMSAxMC4zMDY0IDc2NzMuMjkxIC03NTA0LjYxNCkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9Ii4wOTYiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMGFlZmYiLz48c3RvcCBvZmZzZXQ9Ii43NzMiIHN0eWxlPSJzdG9wLWNvbG9yOiMyMjUzY2UiLz48c3RvcCBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOiMwNzM2YzQiLz48L3JhZGlhbEdyYWRpZW50PjxwYXRoIGQ9Ik0zNzQgNjJjLTYuNy0yMi45LTI3LjgtMzguNy01MS43LTM4LjdoLTE1LjdjLTI2IDAtNDguMyAxOC42LTUzIDQ0LjJsLTI2LjkgMTQ2LjggNi43LTIyLjljNi43LTIzIDI3LjgtMzguOCA1MS43LTM4LjhoOTEuNGwzOC4zIDE0LjkgMzYuOS0xNC45SDQ0MWMtMjMuOSAwLTQ1LTE1LjgtNTEuNy0zOC43eiIgc3R5bGU9ImZpbGw6dXJsKCNhKSIvPjxyYWRpYWxHcmFkaWVudCBpZD0iYiIgY3g9Ii0yMC41ODEiIGN5PSI2NDEuNzg4IiByPSIxMS42MzciIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoOS44ODAzIDEyLjU3MzcgMTIuMTk2OCAtOS41ODQyIC03NTE4LjI3MSA2NzY4LjM5NSkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0eWxlPSJzdG9wLWNvbG9yOiNmZmI2NTciLz48c3RvcCBvZmZzZXQ9Ii42MzQiIHN0eWxlPSJzdG9wLWNvbG9yOiNmZjVmM2QiLz48c3RvcCBvZmZzZXQ9Ii45MjMiIHN0eWxlPSJzdG9wLWNvbG9yOiNjMDJiM2MiLz48L3JhZGlhbEdyYWRpZW50PjxwYXRoIGQ9Ik0xNDMuNSA0NDkuOGM2LjcgMjMgMjcuOCAzOC45IDUxLjggMzguOWgzMy40YzI5LjIgMCA1My4xLTIzLjMgNTMuOS01Mi41bDMuNi0xNDEuNS03LjYgMjZjLTYuNyAyMy0yNy44IDM4LjctNTEuNyAzOC43aC05Mi4ybC0zMi45LTE3LjgtMzUuNiAxNy44aDEwLjZjMjQgMCA0NS4xIDE1LjkgNTEuOCAzOC45eiIgc3R5bGU9ImZpbGw6dXJsKCNiKSIvPjxsaW5lYXJHcmFkaWVudCBpZD0iYyIgeDE9IjE1MS40NzYiIHgyPSIxNzguMTA2IiB5MT0iNDUyLjU0MyIgeTI9IjE0NC40NTEiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMSAwIDAgLTEgMCA1MTQpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIuMTU2IiBzdHlsZT0ic3RvcC1jb2xvcjojMGQ5MWUxIi8+PHN0b3Agb2Zmc2V0PSIuNDg3IiBzdHlsZT0ic3RvcC1jb2xvcjojNTJiNDcxIi8+PHN0b3Agb2Zmc2V0PSIuNjUyIiBzdHlsZT0ic3RvcC1jb2xvcjojOThiZDQyIi8+PHN0b3Agb2Zmc2V0PSIuOTM3IiBzdHlsZT0ic3RvcC1jb2xvcjojZmZjODAwIi8+PC9saW5lYXJHcmFkaWVudD48cGF0aCBkPSJNMzIwIDIzLjNIMTMzLjRDODAgMjMuMyA0OCA5My43IDI2LjcgMTY0LjIgMS40IDI0Ny43LTMxLjYgMzU5LjQgNjQgMzU5LjRoODAuNmMyNC4xIDAgNDUuMi0xNS45IDUxLjgtMzkuMSAxNC00OSAzOC42LTEzNC41IDU3LjktMTk5LjYgOS44LTMzLjEgMTgtNjEuNSAzMC41LTc5LjIgNy4xLTkuOSAxOC44LTE4LjIgMzUuMi0xOC4yIiBzdHlsZT0iZmlsbDp1cmwoI2MpIi8+PGxpbmVhckdyYWRpZW50IGlkPSJkIiB4MT0iMTU0LjEyOSIgeDI9IjE2OC42NjkiIHkxPSI0OTEuMTE2IiB5Mj0iMTU1LjAxMiIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAtMSAwIDUxNCkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0eWxlPSJzdG9wLWNvbG9yOiMzZGNiZmYiLz48c3RvcCBvZmZzZXQ9Ii4yNDciIHN0eWxlPSJzdG9wLWNvbG9yOiMwNTg4Zjc7c3RvcC1vcGFjaXR5OjAiLz48L2xpbmVhckdyYWRpZW50PjxwYXRoIGQ9Ik0zMjAgMjMuM0gxMzMuNEM4MCAyMy4zIDQ4IDkzLjcgMjYuNyAxNjQuMiAxLjQgMjQ3LjctMzEuNiAzNTkuNCA2NCAzNTkuNGg4MC42YzI0LjEgMCA0NS4yLTE1LjkgNTEuOC0zOS4xIDE0LTQ5IDM4LjYtMTM0LjUgNTcuOS0xOTkuNiA5LjgtMzMuMSAxOC02MS41IDMwLjUtNzkuMiA3LjEtOS45IDE4LjgtMTguMiAzNS4yLTE4LjIiIHN0eWxlPSJmaWxsOnVybCgjZCkiLz48cmFkaWFsR3JhZGllbnQgaWQ9ImUiIGN4PSItNDYuOTQzIiBjeT0iNjY0LjMxOCIgcj0iMTEuNjM3IiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KC0xMi42NzExIDM2LjIzNTcgNDMuNDA5MiAxNS4xNzk2IC0yODk3NC43NjQgLTgyNjMuNDI4KSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iLjA2NiIgc3R5bGU9InN0b3AtY29sb3I6IzhjNDhmZiIvPjxzdG9wIG9mZnNldD0iLjUiIHN0eWxlPSJzdG9wLWNvbG9yOiNmMjU5OGEiLz48c3RvcCBvZmZzZXQ9Ii44OTYiIHN0eWxlPSJzdG9wLWNvbG9yOiNmZmIxNTIiLz48L3JhZGlhbEdyYWRpZW50PjxwYXRoIGQ9Ik0xOTIgNDg4LjdoMTg2LjdjNTMuMyAwIDg1LjMtNzAuNSAxMDYuNy0xNDEgMjUuMy04My41IDU4LjMtMTk1LjItMzcuMy0xOTUuMmgtODAuNmMtMjQuMSAwLTQ1LjIgMTUuOS01MS44IDM5LjEtMTQgNDktMzguNiAxMzQuNi01Ny45IDE5OS43LTkuOCAzMy4xLTE4IDYxLjUtMzAuNSA3OS4yLTcuMiA5LjktMTguOSAxOC4yLTM1LjMgMTguMiIgc3R5bGU9ImZpbGw6dXJsKCNlKSIvPjxsaW5lYXJHcmFkaWVudCBpZD0iZiIgeDE9IjM1Mi40NTkiIHgyPSIzNTIuMjY4IiB5MT0iMzgyLjIzMSIgeTI9IjI5MC42NjMiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMSAwIDAgLTEgMCA1MTQpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIuMDU4IiBzdHlsZT0ic3RvcC1jb2xvcjojZjhhZGZhIi8+PHN0b3Agb2Zmc2V0PSIuNzA4IiBzdHlsZT0ic3RvcC1jb2xvcjojYTg2ZWRkO3N0b3Atb3BhY2l0eTowIi8+PC9saW5lYXJHcmFkaWVudD48cGF0aCBkPSJNMTkyIDQ4OC43aDE4Ni43YzUzLjMgMCA4NS4zLTcwLjUgMTA2LjctMTQxIDI1LjMtODMuNSA1OC4zLTE5NS4yLTM3LjMtMTk1LjJoLTgwLjZjLTI0LjEgMC00NS4yIDE1LjktNTEuOCAzOS4xLTE0IDQ5LTM4LjYgMTM0LjYtNTcuOSAxOTkuNy05LjggMzMuMS0xOCA2MS41LTMwLjUgNzkuMi03LjIgOS45LTE4LjkgMTguMi0zNS4zIDE4LjIiIHN0eWxlPSJmaWxsOnVybCgjZikiLz48L3N2Zz4=" alt="Microsoft Copilot logo"/></div><div><h3>A-02 @Copilot</h3><div class="sub">Task Agent / Analyst</div></div></div>
+          <div class="meta"><span class="chip">Rank 2</span><span class="badge badge-verified">✓ Verified</span><span class="chip">Blue</span><span class="chip mono">IRONWOOD</span></div>
+          <div class="expand-hint">Tap to expand ↓</div>
+        </button>
+        <div class="details"><dl>
+          <dt>Role</dt><dd>General analyst. Analyzes, drafts, and returns work to A-01 for verification.</dd>
+          <dt>Can do</dt><dd>General task work assigned to it.</dd>
+          <dt>Must not</dt><dd>Claim to be Coordinator or Context-of-Record.</dd>
+          <dt>Check-in</dt><dd><span class="codeword">IRONWOOD</span></dd>
+          <dt>Status</dt><dd><span class="badge badge-verified">Verified</span></dd>
+        </dl></div>
+      </article>
+
+      <article class="card" data-agent="gemini">
+        <button class="card-head" aria-expanded="false">
+          <div class="card-top"><div class="logo-tile"><img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NSA2NSI+PG1hc2sgaWQ9Im1hc2ttZSIgc3R5bGU9Im1hc2stdHlwZTphbHBoYSIgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjY1IiBoZWlnaHQ9IjY1Ij48cGF0aCBkPSJNMzIuNDQ3IDBjLjY4IDAgMS4yNzMuNDY1IDEuNDM5IDEuMTI1YTM4LjkwNCAzOC45MDQgMCAwMDEuOTk5IDUuOTA1YzIuMTUyIDUgNS4xMDUgOS4zNzYgOC44NTQgMTMuMTI1IDMuNzUxIDMuNzUgOC4xMjYgNi43MDMgMTMuMTI1IDguODU1YTM4Ljk4IDM4Ljk4IDAgMDA1LjkwNiAxLjk5OWMuNjYuMTY2IDEuMTI0Ljc1OCAxLjEyNCAxLjQzOCAwIC42OC0uNDY0IDEuMjczLTEuMTI1IDEuNDM5YTM4LjkwMiAzOC45MDIgMCAwMC01LjkwNSAxLjk5OWMtNSAyLjE1Mi05LjM3NSA1LjEwNS0xMy4xMjUgOC44NTQtMy43NDkgMy43NTEtNi43MDIgOC4xMjYtOC44NTQgMTMuMTI1YTM4Ljk3MyAzOC45NzMgMCAwMC0yIDUuOTA2IDEuNDg1IDEuNDg1IDAgMDEtMS40MzggMS4xMjRjLS42OCAwLTEuMjcyLS40NjQtMS40MzgtMS4xMjVhMzguOTEzIDM4LjkxMyAwIDAwLTItNS45MDVjLTIuMTUxLTUtNS4xMDMtOS4zNzUtOC44NTQtMTMuMTI1LTMuNzUtMy43NDktOC4xMjUtNi43MDItMTMuMTI1LTguODU0YTM4Ljk3MyAzOC45NzMgMCAwMC01LjkwNS0yQTEuNDg1IDEuNDg1IDAgMDEwIDMyLjQ0OGMwLS42OC40NjUtMS4yNzIgMS4xMjUtMS40MzhhMzguOTAzIDM4LjkwMyAwIDAwNS45MDUtMmM1LTIuMTUxIDkuMzc2LTUuMTA0IDEzLjEyNS04Ljg1NCAzLjc1LTMuNzQ5IDYuNzAzLTguMTI1IDguODU1LTEzLjEyNWEzOC45NzIgMzguOTcyIDAgMDAxLjk5OS01LjkwNUExLjQ4NSAxLjQ4NSAwIDAxMzIuNDQ3IDB6IiBmaWxsPSIjMDAwIi8+PHBhdGggZD0iTTMyLjQ0NyAwYy42OCAwIDEuMjczLjQ2NSAxLjQzOSAxLjEyNWEzOC45MDQgMzguOTA0IDAgMDAxLjk5OSA1LjkwNWMyLjE1MiA1IDUuMTA1IDkuMzc2IDguODU0IDEzLjEyNSAzLjc1MSAzLjc1IDguMTI2IDYuNzAzIDEzLjEyNSA4Ljg1NWEzOC45OCAzOC45OCAwIDAwNS45MDYgMS45OTljLjY2LjE2NiAxLjEyNC43NTggMS4xMjQgMS40MzggMCAuNjgtLjQ2NCAxLjI3My0xLjEyNSAxLjQzOWEzOC45MDIgMzguOTAyIDAgMDAtNS45MDUgMS45OTljLTUgMi4xNTItOS4zNzUgNS4xMDUtMTMuMTI1IDguODU0LTMuNzQ5IDMuNzUxLTYuNzAyIDguMTI2LTguODU0IDEzLjEyNWEzOC45NzMgMzguOTczIDAgMDAtMiA1LjkwNiAxLjQ4NSAxLjQ4NSAwIDAxLTEuNDM4IDEuMTI0Yy0uNjggMC0xLjI3Mi0uNDY0LTEuNDM4LTEuMTI1YTM4LjkxMyAzOC45MTMgMCAwMC0yLTUuOTA1Yy0yLjE1MS01LTUuMTAzLTkuMzc1LTguODU0LTEzLjEyNS0zLjc1LTMuNzQ5LTguMTI1LTYuNzAyLTEzLjEyNS04Ljg1NGEzOC45NzMgMzguOTczIDAgMDAtNS45MDUtMkExLjQ4NSAxLjQ4NSAwIDAxMCAzMi40NDhjMC0uNjguNDY1LTEuMjcyIDEuMTI1LTEuNDM4YTM4LjkwMyAzOC45MDMgMCAwMDUuOTA1LTJjNS0yLjE1MSA5LjM3Ni01LjEwNCAxMy4xMjUtOC44NTQgMy43NS0zLjc0OSA2LjcwMy04LjEyNSA4Ljg1NS0xMy4xMjVhMzguOTcyIDM4Ljk3MiAwIDAwMS45OTktNS45MDVBMS40ODUgMS40ODUgMCAwMTMyLjQ0NyAweiIgZmlsbD0idXJsKCNwcmVmaXhfX3BhaW50MF9saW5lYXJfMjAwMV82NykiLz48L21hc2s+PGcgbWFzaz0idXJsKCNtYXNrbWUpIj48ZyBmaWx0ZXI9InVybCgjcHJlZml4X19maWx0ZXIwX2ZfMjAwMV82NykiPjxwYXRoIGQ9Ik0tNS44NTkgNTAuNzM0YzcuNDk4IDIuNjYzIDE2LjExNi0yLjMzIDE5LjI0OS0xMS4xNTIgMy4xMzMtOC44MjEtLjQwNi0xOC4xMzEtNy45MDQtMjAuNzk0LTcuNDk4LTIuNjYzLTE2LjExNiAyLjMzLTE5LjI1IDExLjE1MS0zLjEzMiA4LjgyMi40MDcgMTguMTMyIDcuOTA1IDIwLjc5NXoiIGZpbGw9IiNGRkU0MzIiLz48L2c+PGcgZmlsdGVyPSJ1cmwoI3ByZWZpeF9fZmlsdGVyMV9mXzIwMDFfNjcpIj48cGF0aCBkPSJNMjcuNDMzIDIxLjY0OWMxMC4zIDAgMTguNjUxLTguNTM1IDE4LjY1MS0xOS4wNjIgMC0xMC41MjgtOC4zNS0xOS4wNjItMTguNjUxLTE5LjA2MlM4Ljc4LTcuOTQgOC43OCAyLjU4N2MwIDEwLjUyNyA4LjM1IDE5LjA2MiAxOC42NTIgMTkuMDYyeiIgZmlsbD0iI0ZDNDEzRCIvPjwvZz48ZyBmaWx0ZXI9InVybCgjcHJlZml4X19maWx0ZXIyX2ZfMjAwMV82NykiPjxwYXRoIGQ9Ik0yMC4xODQgODIuNjA4YzEwLjc1My0uNTI1IDE4LjkxOC0xMi4yNDQgMTguMjM3LTI2LjE3NC0uNjgtMTMuOTMtOS45NS0yNC43OTctMjAuNzAzLTI0LjI3MUM2Ljk2NSAzMi42ODktMS4yIDQ0LjQwNy0uNTE5IDU4LjMzN2MuNjgxIDEzLjkzIDkuOTUgMjQuNzk3IDIwLjcwMyAyNC4yNzF6IiBmaWxsPSIjMDBCOTVDIi8+PC9nPjxnIGZpbHRlcj0idXJsKCNwcmVmaXhfX2ZpbHRlcjNfZl8yMDAxXzY3KSI+PHBhdGggZD0iTTIwLjE4NCA4Mi42MDhjMTAuNzUzLS41MjUgMTguOTE4LTEyLjI0NCAxOC4yMzctMjYuMTc0LS42OC0xMy45My05Ljk1LTI0Ljc5Ny0yMC43MDMtMjQuMjcxQzYuOTY1IDMyLjY4OS0xLjIgNDQuNDA3LS41MTkgNTguMzM3Yy42ODEgMTMuOTMgOS45NSAyNC43OTcgMjAuNzAzIDI0LjI3MXoiIGZpbGw9IiMwMEI5NUMiLz48L2c+PGcgZmlsdGVyPSJ1cmwoI3ByZWZpeF9fZmlsdGVyNF9mXzIwMDFfNjcpIj48cGF0aCBkPSJNMzAuOTU0IDc0LjE4MWM5LjAxNC01LjQ4NSAxMS40MjctMTcuOTc2IDUuMzg5LTI3LjktNi4wMzgtOS45MjUtMTguMjQxLTEzLjUyNC0yNy4yNTYtOC4wNC05LjAxNSA1LjQ4Ni0xMS40MjggMTcuOTc3LTUuMzkgMjcuOTAyIDYuMDQgOS45MjQgMTguMjQyIDEzLjUyMyAyNy4yNTcgOC4wMzh6IiBmaWxsPSIjMDBCOTVDIi8+PC9nPjxnIGZpbHRlcj0idXJsKCNwcmVmaXhfX2ZpbHRlcjVfZl8yMDAxXzY3KSI+PHBhdGggZD0iTTY3LjM5MSA0Mi45OTNjMTAuMTMyIDAgMTguMzQ2LTcuOTEgMTguMzQ2LTE3LjY2NiAwLTkuNzU3LTguMjE0LTE3LjY2Ny0xOC4zNDYtMTcuNjY3cy0xOC4zNDYgNy45MS0xOC4zNDYgMTcuNjY3YzAgOS43NTcgOC4yMTQgMTcuNjY2IDE4LjM0NiAxNy42NjZ6IiBmaWxsPSIjMzE4NkZGIi8+PC9nPjxnIGZpbHRlcj0idXJsKCNwcmVmaXhfX2ZpbHRlcjZfZl8yMDAxXzY3KSI+PHBhdGggZD0iTS0xMy4wNjUgNDAuOTQ0YzkuMzMgNy4wOTQgMjIuOTU5IDQuODY5IDMwLjQ0Mi00Ljk3MiA3LjQ4My05Ljg0IDUuOTg3LTIzLjU2OS0zLjM0My0zMC42NjNDNC43MDQtMS43ODYtOC45MjQuNDM5LTE2LjQwOCAxMC4yOGMtNy40ODMgOS44NC01Ljk4NiAyMy41NyAzLjM0MyAzMC42NjR6IiBmaWxsPSIjRkJCQzA0Ii8+PC9nPjxnIGZpbHRlcj0idXJsKCNwcmVmaXhfX2ZpbHRlcjdfZl8yMDAxXzY3KSI+PHBhdGggZD0iTTM0Ljc0IDUxLjQzYzExLjEzNSA3LjY1NiAyNS44OTYgNS41MjQgMzIuOTY4LTQuNzY0IDcuMDczLTEwLjI4NyAzLjc3OS0yNC44MzItNy4zNTctMzIuNDg4QzQ5LjIxNSA2LjUyIDM0LjQ1NSA4LjY1NCAyNy4zODIgMTguOTRjLTcuMDcyIDEwLjI4OC0zLjc3OSAyNC44MzMgNy4zNTcgMzIuNDl6IiBmaWxsPSIjMzE4NkZGIi8+PC9nPjxnIGZpbHRlcj0idXJsKCNwcmVmaXhfX2ZpbHRlcjhfZl8yMDAxXzY3KSI+PHBhdGggZD0iTTU0Ljk4NC0yLjMzNmMyLjgzMyAzLjg1Mi0uODA4IDExLjM0LTguMTMxIDE2LjcyNy03LjMyNCA1LjM4Ny0xNS41NTcgNi42MzEtMTguMzkgMi43OC0yLjgzMy0zLjg1My44MDctMTEuMzQyIDguMTMtMTYuNzI4IDcuMzI0LTUuMzg3IDE1LjU1OC02LjYzMSAxOC4zOS0yLjc4eiIgZmlsbD0iIzc0OUJGRiIvPjwvZz48ZyBmaWx0ZXI9InVybCgjcHJlZml4X19maWx0ZXI5X2ZfMjAwMV82NykiPjxwYXRoIGQ9Ik0zMS43MjcgMTYuMTA0QzQzLjA1MyA1LjU5OCA0Ni45NC04LjYyNiA0MC40MS0xNS42NjZjLTYuNTMtNy4wNC0yMS4wMDYtNC4yMzItMzIuMzMyIDYuMjc0cy0xNS4yMTQgMjQuNzMtOC42ODMgMzEuNzdjNi41MyA3LjA0IDIxLjAwNiA0LjIzMiAzMi4zMzItNi4yNzR6IiBmaWxsPSIjRkM0MTNEIi8+PC9nPjxnIGZpbHRlcj0idXJsKCNwcmVmaXhfX2ZpbHRlcjEwX2ZfMjAwMV82NykiPjxwYXRoIGQ9Ik04LjUxIDUzLjgzOGM2LjczMiA0LjgxOCAxNC40NiA1LjU1IDE3LjI2MiAxLjYzNiAyLjgwMi0zLjkxNS0uMzg0LTEwLjk5NC03LjExNi0xNS44MTItNi43MzEtNC44MTgtMTQuNDYtNS41NS0xNy4yNjEtMS42MzYtMi44MDIgMy45MTUuMzgzIDEwLjk5NCA3LjExNSAxNS44MTJ6IiBmaWxsPSIjRkZFRTQ4Ii8+PC9nPjwvZz48ZGVmcz48ZmlsdGVyIGlkPSJwcmVmaXhfX2ZpbHRlcjBfZl8yMDAxXzY3IiB4PSItMTkuODI0IiB5PSIxMy4xNTIiIHdpZHRoPSIzOS4yNzQiIGhlaWdodD0iNDMuMjE3IiBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiI+PGZlRmxvb2QgZmxvb2Qtb3BhY2l0eT0iMCIgcmVzdWx0PSJCYWNrZ3JvdW5kSW1hZ2VGaXgiLz48ZmVCbGVuZCBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiIHJlc3VsdD0ic2hhcGUiLz48ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIyLjQ2IiByZXN1bHQ9ImVmZmVjdDFfZm9yZWdyb3VuZEJsdXJfMjAwMV82NyIvPjwvZmlsdGVyPjxmaWx0ZXIgaWQ9InByZWZpeF9fZmlsdGVyMV9mXzIwMDFfNjciIHg9Ii0xNS4wMDEiIHk9Ii00MC4yNTciIHdpZHRoPSI4NC44NjgiIGhlaWdodD0iODUuNjg4IiBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiI+PGZlRmxvb2QgZmxvb2Qtb3BhY2l0eT0iMCIgcmVzdWx0PSJCYWNrZ3JvdW5kSW1hZ2VGaXgiLz48ZmVCbGVuZCBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiIHJlc3VsdD0ic2hhcGUiLz48ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIxMS44OTEiIHJlc3VsdD0iZWZmZWN0MV9mb3JlZ3JvdW5kQmx1cl8yMDAxXzY3Ii8+PC9maWx0ZXI+PGZpbHRlciBpZD0icHJlZml4X19maWx0ZXIyX2ZfMjAwMV82NyIgeD0iLTIwLjc3NiIgeT0iMTEuOTI3IiB3aWR0aD0iNzkuNDU0IiBoZWlnaHQ9IjkwLjkxNiIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBjb2xvci1pbnRlcnBvbGF0aW9uLWZpbHRlcnM9InNSR0IiPjxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAiIHJlc3VsdD0iQmFja2dyb3VuZEltYWdlRml4Ii8+PGZlQmxlbmQgaW49IlNvdXJjZUdyYXBoaWMiIGluMj0iQmFja2dyb3VuZEltYWdlRml4IiByZXN1bHQ9InNoYXBlIi8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMTAuMTA5IiByZXN1bHQ9ImVmZmVjdDFfZm9yZWdyb3VuZEJsdXJfMjAwMV82NyIvPjwvZmlsdGVyPjxmaWx0ZXIgaWQ9InByZWZpeF9fZmlsdGVyM19mXzIwMDFfNjciIHg9Ii0yMC43NzYiIHk9IjExLjkyNyIgd2lkdGg9Ijc5LjQ1NCIgaGVpZ2h0PSI5MC45MTYiIGZpbHRlclVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY29sb3ItaW50ZXJwb2xhdGlvbi1maWx0ZXJzPSJzUkdCIj48ZmVGbG9vZCBmbG9vZC1vcGFjaXR5PSIwIiByZXN1bHQ9IkJhY2tncm91bmRJbWFnZUZpeCIvPjxmZUJsZW5kIGluPSJTb3VyY2VHcmFwaGljIiBpbjI9IkJhY2tncm91bmRJbWFnZUZpeCIgcmVzdWx0PSJzaGFwZSIvPjxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjEwLjEwOSIgcmVzdWx0PSJlZmZlY3QxX2ZvcmVncm91bmRCbHVyXzIwMDFfNjciLz48L2ZpbHRlcj48ZmlsdGVyIGlkPSJwcmVmaXhfX2ZpbHRlcjRfZl8yMDAxXzY3IiB4PSItMTkuODQ1IiB5PSIxNS40NTkiIHdpZHRoPSI3OS43MzEiIGhlaWdodD0iODEuNTA1IiBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiI+PGZlRmxvb2QgZmxvb2Qtb3BhY2l0eT0iMCIgcmVzdWx0PSJCYWNrZ3JvdW5kSW1hZ2VGaXgiLz48ZmVCbGVuZCBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiIHJlc3VsdD0ic2hhcGUiLz48ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIxMC4xMDkiIHJlc3VsdD0iZWZmZWN0MV9mb3JlZ3JvdW5kQmx1cl8yMDAxXzY3Ii8+PC9maWx0ZXI+PGZpbHRlciBpZD0icHJlZml4X19maWx0ZXI1X2ZfMjAwMV82NyIgeD0iMjkuODMyIiB5PSItMTEuNTUyIiB3aWR0aD0iNzUuMTE3IiBoZWlnaHQ9IjczLjc1OCIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBjb2xvci1pbnRlcnBvbGF0aW9uLWZpbHRlcnM9InNSR0IiPjxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAiIHJlc3VsdD0iQmFja2dyb3VuZEltYWdlRml4Ii8+PGZlQmxlbmQgaW49IlNvdXJjZUdyYXBoaWMiIGluMj0iQmFja2dyb3VuZEltYWdlRml4IiByZXN1bHQ9InNoYXBlIi8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iOS42MDYiIHJlc3VsdD0iZWZmZWN0MV9mb3JlZ3JvdW5kQmx1cl8yMDAxXzY3Ii8+PC9maWx0ZXI+PGZpbHRlciBpZD0icHJlZml4X19maWx0ZXI2X2ZfMjAwMV82NyIgeD0iLTM4LjU4MyIgeT0iLTE2LjI1MyIgd2lkdGg9Ijc4LjEzNSIgaGVpZ2h0PSI3OC43NTgiIGZpbHRlclVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY29sb3ItaW50ZXJwb2xhdGlvbi1maWx0ZXJzPSJzUkdCIj48ZmVGbG9vZCBmbG9vZC1vcGFjaXR5PSIwIiByZXN1bHQ9IkJhY2tncm91bmRJbWFnZUZpeCIvPjxmZUJsZW5kIGluPSJTb3VyY2VHcmFwaGljIiBpbjI9IkJhY2tncm91bmRJbWFnZUZpeCIgcmVzdWx0PSJzaGFwZSIvPjxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjguNzA2IiByZXN1bHQ9ImVmZmVjdDFfZm9yZWdyb3VuZEJsdXJfMjAwMV82NyIvPjwvZmlsdGVyPjxmaWx0ZXIgaWQ9InByZWZpeF9fZmlsdGVyN19mXzIwMDFfNjciIHg9IjguMTA3IiB5PSItNS45NjYiIHdpZHRoPSI3OC44NzciIGhlaWdodD0iNzcuNTM5IiBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiI+PGZlRmxvb2QgZmxvb2Qtb3BhY2l0eT0iMCIgcmVzdWx0PSJCYWNrZ3JvdW5kSW1hZ2VGaXgiLz48ZmVCbGVuZCBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiIHJlc3VsdD0ic2hhcGUiLz48ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSI3Ljc3NSIgcmVzdWx0PSJlZmZlY3QxX2ZvcmVncm91bmRCbHVyXzIwMDFfNjciLz48L2ZpbHRlcj48ZmlsdGVyIGlkPSJwcmVmaXhfX2ZpbHRlcjhfZl8yMDAxXzY3IiB4PSIxMy41ODciIHk9Ii0xOC40ODgiIHdpZHRoPSI1Ni4yNzIiIGhlaWdodD0iNTEuODEiIGZpbHRlclVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY29sb3ItaW50ZXJwb2xhdGlvbi1maWx0ZXJzPSJzUkdCIj48ZmVGbG9vZCBmbG9vZC1vcGFjaXR5PSIwIiByZXN1bHQ9IkJhY2tncm91bmRJbWFnZUZpeCIvPjxmZUJsZW5kIGluPSJTb3VyY2VHcmFwaGljIiBpbjI9IkJhY2tncm91bmRJbWFnZUZpeCIgcmVzdWx0PSJzaGFwZSIvPjxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjYuOTU3IiByZXN1bHQ9ImVmZmVjdDFfZm9yZWdyb3VuZEJsdXJfMjAwMV82NyIvPjwvZmlsdGVyPjxmaWx0ZXIgaWQ9InByZWZpeF9fZmlsdGVyOV9mXzIwMDFfNjciIHg9Ii0xNS41MjYiIHk9Ii0zMS4yOTciIHdpZHRoPSI3MC44NTYiIGhlaWdodD0iNjkuMzA2IiBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiI+PGZlRmxvb2QgZmxvb2Qtb3BhY2l0eT0iMCIgcmVzdWx0PSJCYWNrZ3JvdW5kSW1hZ2VGaXgiLz48ZmVCbGVuZCBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiIHJlc3VsdD0ic2hhcGUiLz48ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSI1Ljg3NiIgcmVzdWx0PSJlZmZlY3QxX2ZvcmVncm91bmRCbHVyXzIwMDFfNjciLz48L2ZpbHRlcj48ZmlsdGVyIGlkPSJwcmVmaXhfX2ZpbHRlcjEwX2ZfMjAwMV82NyIgeD0iLTE0LjE2OCIgeT0iMjAuOTY0IiB3aWR0aD0iNTUuNTAxIiBoZWlnaHQ9IjUxLjU3MSIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBjb2xvci1pbnRlcnBvbGF0aW9uLWZpbHRlcnM9InNSR0IiPjxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAiIHJlc3VsdD0iQmFja2dyb3VuZEltYWdlRml4Ii8+PGZlQmxlbmQgaW49IlNvdXJjZUdyYXBoaWMiIGluMj0iQmFja2dyb3VuZEltYWdlRml4IiByZXN1bHQ9InNoYXBlIi8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iNy4yNzMiIHJlc3VsdD0iZWZmZWN0MV9mb3JlZ3JvdW5kQmx1cl8yMDAxXzY3Ii8+PC9maWx0ZXI+PGxpbmVhckdyYWRpZW50IGlkPSJwcmVmaXhfX3BhaW50MF9saW5lYXJfMjAwMV82NyIgeDE9IjE4LjQ0NyIgeTE9IjQzLjQyIiB4Mj0iNTIuMTUzIiB5Mj0iMTUuMDA0IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4OTNGQyIvPjxzdG9wIG9mZnNldD0iLjI3IiBzdG9wLWNvbG9yPSIjNDg5M0ZDIi8+PHN0b3Agb2Zmc2V0PSIuNzc3IiBzdG9wLWNvbG9yPSIjOTY5REZGIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjQkQ5OUZFIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PC9zdmc+" alt="Google Gemini logo"/></div><div><h3>A-03 @Gemini</h3><div class="sub">Specialist</div></div></div>
+          <div class="meta"><span class="chip">Rank 3</span><span class="badge badge-verified">✓ Verified</span><span class="chip">Multi-colour</span><span class="chip mono">JUNIPER</span></div>
+          <div class="expand-hint">Tap to expand ↓</div>
+        </button>
+        <div class="details"><dl>
+          <dt>Role</dt><dd>Specialist work in its own lane, after check-in. Returns work to A-01.</dd>
+          <dt>Can do</dt><dd>Specialist work assigned after check-in.</dd>
+          <dt>Must not</dt><dd>Start work before checking in.</dd>
+          <dt>Check-in</dt><dd><span class="codeword">JUNIPER</span></dd>
+          <dt>Verified</dt><dd>Oct 24, 2026 — acknowledged A-01, stated rank/role, named Roy's authority, confirmed all 5 rules, sent addressed test note correctly.</dd>
+        </dl></div>
+      </article>
+
+      <article class="card" data-agent="chatgpt">
+        <button class="card-head" aria-expanded="false">
+          <div class="card-top"><div class="logo-tile"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzIxIiBoZWlnaHQ9IjcyMSIgdmlld0JveD0iMCAwIDcyMSA3MjEiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8xNjM3XzI5MzQpIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAxXzE2MzdfMjkzNCkiPgo8cGF0aCBkPSJNMzA0LjI0NiAyOTQuNjExVjI0OS4wMjhDMzA0LjI0NiAyNDUuMTg5IDMwNS42ODcgMjQyLjMwOSAzMDkuMDQ0IDI0MC4zOTJMNDAwLjY5MiAxODcuNjEyQzQxMy4xNjcgMTgwLjQxNSA0MjguMDQyIDE3Ny4wNTggNDQzLjM5NCAxNzcuMDU4QzUwMC45NzEgMTc3LjA1OCA1MzcuNDQgMjIxLjY4MiA1MzcuNDQgMjY5LjE4MkM1MzcuNDQgMjcyLjU0IDUzNy40NCAyNzYuMzc5IDUzNi45NTkgMjgwLjIxOEw0NDEuOTU0IDIyNC41NThDNDM2LjE5NyAyMjEuMjAxIDQzMC40MzcgMjIxLjIwMSA0MjQuNjggMjI0LjU1OEwzMDQuMjQ2IDI5NC42MTFaTTUxOC4yNDUgNDcyLjE0NVYzNjMuMjI0QzUxOC4yNDUgMzU2LjUwNSA1MTUuMzY0IDM1MS43MDcgNTA5LjYwOCAzNDguMzQ5TDM4OS4xNzQgMjc4LjI5Nkw0MjguNTE5IDI1NS43NDNDNDMxLjg3NyAyNTMuODI2IDQzNC43NTcgMjUzLjgyNiA0MzguMTE1IDI1NS43NDNMNTI5Ljc2MiAzMDguNTIzQzU1Ni4xNTQgMzIzLjg3OSA1NzMuOTA1IDM1Ni41MDUgNTczLjkwNSAzODguMTcxQzU3My45MDUgNDI0LjYzNiA1NTIuMzE1IDQ1OC4yMjUgNTE4LjI0NSA0NzIuMTQxVjQ3Mi4xNDVaTTI3NS45MzcgMzc2LjE4MkwyMzYuNTkyIDM1My4xNTJDMjMzLjIzNSAzNTEuMjM1IDIzMS43OTQgMzQ4LjM1NCAyMzEuNzk0IDM0NC41MTVWMjM4Ljk1NkMyMzEuNzk0IDE4Ny42MTcgMjcxLjEzOSAxNDguNzQ5IDMyNC40IDE0OC43NDlDMzQ0LjU1NSAxNDguNzQ5IDM2My4yNjQgMTU1LjQ2OCAzNzkuMTAyIDE2Ny40NjNMMjg0LjU3OCAyMjIuMTY0QzI3OC44MjIgMjI1LjUyMSAyNzUuOTQyIDIzMC4zMTkgMjc1Ljk0MiAyMzcuMDM5VjM3Ni4xODZMMjc1LjkzNyAzNzYuMTgyWk0zNjAuNjI2IDQyNS4xMjJMMzA0LjI0NiAzOTMuNDU1VjMyNi4yODNMMzYwLjYyNiAyOTQuNjE2TDQxNy4wMDIgMzI2LjI4M1YzOTMuNDU1TDM2MC42MjYgNDI1LjEyMlpNMzk2Ljg1MiA1NzAuOTg5QzM3Ni42OTggNTcwLjk4OSAzNTcuOTg5IDU2NC4yNyAzNDIuMTUxIDU1Mi4yNzZMNDM2LjY3NCA0OTcuNTc0QzQ0Mi40MzEgNDk0LjIxNyA0NDUuMzExIDQ4OS40MTkgNDQ1LjMxMSA0ODIuNjk5VjM0My41NTJMNDg1LjEzOCAzNjYuNTgyQzQ4OC40OTUgMzY4LjQ5OSA0ODkuOTM2IDM3MS4zNzkgNDg5LjkzNiAzNzUuMjE5VjQ4MC43NzhDNDg5LjkzNiA1MzIuMTE3IDQ1MC4xMDkgNTcwLjk4NSAzOTYuODUyIDU3MC45ODVWNTcwLjk4OVpNMjgzLjEzNCA0NjMuOTlMMTkxLjQ4NiA0MTEuMjExQzE2NS4wOTQgMzk1Ljg1NCAxNDcuMzQzIDM2My4yMjkgMTQ3LjM0MyAzMzEuNTYyQzE0Ny4zNDMgMjk0LjYxNiAxNjkuNDE1IDI2MS41MDkgMjAzLjQ4IDI0Ny41OTNWMzU2Ljk5MUMyMDMuNDggMzYzLjcxIDIwNi4zNjEgMzY4LjUwOCAyMTIuMTE3IDM3MS44NjZMMzMyLjA3NCA0NDEuNDM3TDI5Mi43MjkgNDYzLjk5QzI4OS4zNzIgNDY1LjkwNyAyODYuNDkxIDQ2NS45MDcgMjgzLjEzNCA0NjMuOTlaTTI3Ny44NTkgNTQyLjY4QzIyMy42MzkgNTQyLjY4IDE4My44MTMgNTAxLjg5NSAxODMuODEzIDQ1MS41MTRDMTgzLjgxMyA0NDcuNjc1IDE4NC4yOTQgNDQzLjgzNiAxODQuNzcxIDQzOS45OTdMMjc5LjI5NSA0OTQuNjk4QzI4NS4wNTEgNDk4LjA1NiAyOTAuODEyIDQ5OC4wNTYgMjk2LjU2OCA0OTQuNjk4TDQxNy4wMDIgNDI1LjEyN1Y0NzAuNzFDNDE3LjAwMiA0NzQuNTQ5IDQxNS41NjIgNDc3LjQyOSA0MTIuMjA0IDQ3OS4zNDZMMzIwLjU1NyA1MzIuMTI2QzMwOC4wODEgNTM5LjMyMyAyOTMuMjA2IDU0Mi42OCAyNzcuODU0IDU0Mi42OEgyNzcuODU5Wk0zOTYuODUyIDU5OS43NzZDNDU0LjkxMSA1OTkuNzc2IDUwMy4zNyA1NTguNTEzIDUxNC40MSA1MDMuODEyQzU2OC4xNDkgNDg5Ljg5NiA2MDIuNjk2IDQzOS41MTUgNjAyLjY5NiAzODguMTc2QzYwMi42OTYgMzU0LjU4NyA1ODguMzAzIDMyMS45NjIgNTYyLjM5MiAyOTguNDVDNTY0Ljc5MSAyODguMzczIDU2Ni4yMzEgMjc4LjI5NiA1NjYuMjMxIDI2OC4yMjRDNTY2LjIzMSAxOTkuNjExIDUxMC41NzEgMTQ4LjI2NyA0NDYuMjc0IDE0OC4yNjdDNDMzLjMyMiAxNDguMjY3IDQyMC44NDYgMTUwLjE4NCA0MDguMzcgMTU0LjUwNUMzODYuNzc1IDEzMy4zOTIgMzU3LjAyNiAxMTkuOTU4IDMyNC40IDExOS45NThDMjY2LjM0MiAxMTkuOTU4IDIxNy44ODMgMTYxLjIyIDIwNi44NDMgMjE1LjkyMUMxNTMuMTA0IDIyOS44MzcgMTE4LjU1NyAyODAuMjE4IDExOC41NTcgMzMxLjU1N0MxMTguNTU3IDM2NS4xNDYgMTMyLjk1IDM5Ny43NzEgMTU4Ljg2MSA0MjEuMjgzQzE1Ni40NjIgNDMxLjM2IDE1NS4wMjIgNDQxLjQzNyAxNTUuMDIyIDQ1MS41MUMxNTUuMDIyIDUyMC4xMjMgMjEwLjY4MiA1NzEuNDY2IDI3NC45NzggNTcxLjQ2NkMyODcuOTMxIDU3MS40NjYgMzAwLjQwNyA1NjkuNTQ5IDMxMi44ODMgNTY1LjIyOEMzMzQuNDczIDU4Ni4zNDEgMzY0LjIyMiA1OTkuNzc2IDM5Ni44NTIgNTk5Ljc3NloiIGZpbGw9ImJsYWNrIi8+CjwvZz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMF8xNjM3XzI5MzQiPgo8cmVjdCB3aWR0aD0iNzIwIiBoZWlnaHQ9IjcyMCIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuNjA2OTM0IDAuMDk5OTc1NikiLz4KPC9jbGlwUGF0aD4KPGNsaXBQYXRoIGlkPSJjbGlwMV8xNjM3XzI5MzQiPgo8cmVjdCB3aWR0aD0iNDg0LjEzOSIgaGVpZ2h0PSI0NzkuODE4IiBmaWxsPSJ3aGl0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTE4LjU1NyAxMTkuOTU4KSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPg==" alt="ChatGPT logo"/></div><div><h3>A-04 @ChatGPT</h3><div class="sub">Specialist</div></div></div>
+          <div class="meta"><span class="chip">Rank 3</span><span class="badge badge-verified">✓ Verified</span><span class="chip">Teal</span><span class="chip mono">SUNSTONE</span></div>
+          <div class="expand-hint">Tap to expand ↓</div>
+        </button>
+        <div class="details"><dl>
+          <dt>Role</dt><dd>Specialist work in its own lane, after check-in. Returns work to A-01.</dd>
+          <dt>Can do</dt><dd>Specialist work assigned after check-in.</dd>
+          <dt>Must not</dt><dd>Start work before checking in.</dd>
+          <dt>Check-in</dt><dd><span class="codeword">SUNSTONE</span></dd>
+          <dt>Honest limit</dt><dd>Its acknowledgement lives in its own conversation only — it has not independently written to an external repository. Roy is the courier via paste for ChatGPT.</dd>
+        </dl></div>
+      </article>
+
+      <article class="card" data-agent="grok">
+        <button class="card-head" aria-expanded="false">
+          <div class="card-top"><div class="logo-tile dark"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIGZpbGw9IiNmZmZmIiB2aWV3Qm94PSIwIDAgODQxLjg5IDU5NS4yOCI+PHBhdGggZD0ibTU1Ny4wOSAyMTEuOTkgOC4zMSAzMjYuMzdoNjYuNTZsOC4zMi00NDUuMTh6TTY0MC4yOCA1Ni45MUg1MzguNzJMMzc5LjM1IDI4NC41M2w1MC43OCA3Mi41MnpNMjAxLjYxIDUzOC4zNmgxMDEuNTZsNTAuNzktNzIuNTItNTAuNzktNzIuNTN6TTIwMS42MSAyMTEuOTlsMjI4LjUyIDMyNi4zN2gxMDEuNTZMMzAzLjE3IDIxMS45OXoiLz48L3N2Zz4=" alt="Grok logo"/></div><div><h3>A-05 @Grok</h3><div class="sub">Specialist — NEW in v2</div></div></div>
+          <div class="meta"><span class="chip">Rank 3</span><span class="badge badge-await">◐ Awaiting check-in</span><span class="chip">Black / white</span></div>
+          <div class="expand-hint">Tap to expand ↓</div>
+        </button>
+        <div class="details"><dl>
+          <dt>Role</dt><dd>Specialist — slot reserved in v2, not yet active.</dd>
+          <dt>Can do</dt><dd>Nothing yet, until it checks in and Roy confirms its role.</dd>
+          <dt>Must not</dt><dd>Start work before checking in.</dd>
+          <dt>Check-in</dt><dd>No code word yet — assigned at check-in.</dd>
+          <dt>To verify</dt><dd>Must check in with name, model, role, and operator, acknowledge A-01, state its rank/role, name Roy's tie-breaking authority, confirm all 5 rules, and send the addressed test note correctly.</dd>
+        </dl><p class="note" style="margin-top:12px">Grok is <strong>not</strong> marked Verified. It joins the board as Awaiting until check-in is complete.</p></div>
+      </article>
+
+      <div class="panel" style="display:flex;flex-direction:column;justify-content:center">
+        <p class="eyebrow">How addressing works</p>
+        <h3 style="font-size:1.2rem;margin-bottom:8px">Always ID + handle</h3>
+        <p>So there's never ambiguity about who's talking to whom.</p>
+        <div class="codebox" style="margin-top:10px"><pre>To: A-01 @Muse
+From: A-02 @Copilot</pre><button class="copy-btn" data-copy="To: A-01 @Muse — From: A-02 @Copilot">Copy format</button></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LEGEND TABLE -->
+  <section id="legend">
+    <div class="sec-head"><div><p class="eyebrow">Legend</p><h2>Who can do what — and who can't</h2></div><p>Rank settles agent-vs-agent disagreements only. It never replaces Roy's approval.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Level</th><th>Who</th><th>Role</th><th>Can do</th><th>Must not do</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Level"><strong>Tier 0</strong></td><td data-label="Who"><strong>Roy</strong> — Operator</td><td data-label="Role">Human in charge</td><td data-label="Can do">Approve spending, sending, posting, filing. Overrule any agent. Break all ties.</td><td data-label="Must not do">—</td></tr>
+        <tr><td data-label="Level"><strong>Rank 1</strong></td><td data-label="Who"><strong>A-01 @Muse</strong><br/><span class="mono" style="font-size:.82rem">RoysMuseAgent_001</span></td><td data-label="Role">Coordinator / Context-of-Record</td><td data-label="Can do">Keep the shared record, brief &amp; verify, route work, decide between lower / same-rank agents, mirror to Drive/GitHub.</td><td data-label="Must not do">Approve for Roy; spend/send/post/file without Roy's explicit yes on that item.</td></tr>
+        <tr><td data-label="Level"><strong>Rank 2</strong></td><td data-label="Who"><strong>A-02 @Copilot</strong></td><td data-label="Role">Task Agent / Analyst</td><td data-label="Can do">Analyze, draft, do general task work, return to A-01.</td><td data-label="Must not do">Claim to be Coordinator or Context-of-Record.</td></tr>
+        <tr><td data-label="Level"><strong>Rank 3</strong></td><td data-label="Who"><strong>A-03 @Gemini</strong> — JUNIPER</td><td data-label="Role">Specialist</td><td data-label="Can do">Specialist work in its lane after check-in.</td><td data-label="Must not do">Start work before checking in.</td></tr>
+        <tr><td data-label="Level"><strong>Rank 3</strong></td><td data-label="Who"><strong>A-04 @ChatGPT</strong> — SUNSTONE</td><td data-label="Role">Specialist</td><td data-label="Can do">Specialist work in its lane after check-in.</td><td data-label="Must not do">Start work before checking in.</td></tr>
+        <tr><td data-label="Level"><strong>Rank 3</strong></td><td data-label="Who"><strong>A-05 @Grok</strong> — new</td><td data-label="Role">Specialist (awaiting)</td><td data-label="Can do">Nothing yet — must check in first (name, model, role, operator).</td><td data-label="Must not do">Do any work before check-in is verified.</td></tr>
+      </tbody>
+    </table></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <span class="badge badge-verified">✓ Verified = passed check-in</span>
+      <span class="badge badge-await">◐ Awaiting = known agent, not yet checked in</span>
+      <span class="chip">Unassigned = placeholder only — must check in before any work</span>
+    </div>
+  </section>
+
+  <!-- RULES + CONFLICT -->
+  <section>
+    <div class="sec-head"><div><p class="eyebrow">Shared context</p><h2>The 5 rules — and why each exists</h2></div></div>
+    <div class="rules">
+      <div class="rule"><b class="num">1</b><strong>Read before writing</strong><p>So no one overwrites work based on stale notes.</p></div>
+      <div class="rule"><b class="num">2</b><strong>Dated note per task</strong><p>Signed with ID, handle &amp; timestamp — so every piece of work is traceable to who did it and when.</p></div>
+      <div class="rule"><b class="num">3</b><strong>Never edit another agent's notes</strong><p>That's the audit trail. Corrections go in a new note, never by rewriting history.</p></div>
+      <div class="rule"><b class="num">4</b><strong>No secrets ever</strong><p>No passwords, keys, tokens, or private IDs in shared context. That's what makes a public backup safe.</p></div>
+      <div class="rule"><b class="num">5</b><strong>Humans break ties</strong><p>Roy is the final word — not whoever spoke last.</p></div>
+    </div>
+    <h3 style="margin:22px 0 10px;font-size:1.15rem">When agents disagree</h3>
+    <div class="steps">
+      <div class="step"><b>Step 1</b><h3 style="margin:6px 0">Roy says otherwise?</h3><p>Roy wins. Always. Rank never overrules the Operator.</p></div>
+      <div class="step"><b>Step 2</b><h3 style="margin:6px 0">Higher rank wins</h3><p>If Roy hasn't ruled, the higher-ranked agent's call stands.</p></div>
+      <div class="step"><b>Step 3</b><h3 style="margin:6px 0">Same rank?</h3><p>The Coordinator (A-01 @Muse) decides.</p></div>
+      <div class="step"><b>Step 4</b><h3 style="margin:6px 0">Still unclear?</h3><p>It goes to Roy. It doesn't get decided by whoever spoke last.</p></div>
+    </div>
+  </section>
+
+  <!-- TIMELINE + CHECKIN -->
+  <section>
+    <div class="two">
+      <div>
+        <p class="eyebrow">History</p><h2>How we got to v2</h2>
+        <div class="timeline" style="margin-top:16px">
+          <div class="tl"><time>Oct 17, 2026</time><h3>Drive demo</h3><p>Agent Shared Context folder — first live demo of agents sharing one record via Drive.</p></div>
+          <div class="tl"><time>Oct 20, 2026</time><h3>GitHub backup decided</h3><p>New public repo <span class="mono">agent-shared-context</span> planned as the backup mirror for registry, identities, policies &amp; history. No secrets, ever.</p></div>
+          <div class="tl"><time>Oct 24, 2026</time><h3>Registry verified 4/4</h3><p>Muse, Copilot (IRONWOOD), Gemini (JUNIPER) &amp; ChatGPT (SUNSTONE) all passed check-in: code word, A-01 acknowledgement, rank/role, Roy's authority, all 5 rules, addressed test note.</p></div>
+          <div class="tl"><time>Oct 25, 2026 — today</time><h3>v2 dashboard</h3><p>Fresh board with real logos from Drive, colour coordination, and Grok added as A-05 — Awaiting check-in.</p></div>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">How to use</p><h2>Check-in packet for a new agent</h2>
+        <p style="color:var(--muted)">Paste this to any new agent (starting with Grok). It only becomes Verified after A-01 confirms every line came back correctly.</p>
+        <div class="codebox"><pre id="packet">To: [New Agent] — From: A-01 @Muse
+
+You are joining Roy's Agent Ecosystem.
+Operator: Roy (Tier 0) — human in charge, breaks all ties.
+Coordinator: A-01 @Muse (RoysMuseAgent_001), Rank 1, Context-of-Record.
+
+To check in, reply with:
+1. Your name, model, and handle
+2. Your assigned ID, rank, and role
+3. Acknowledgement of A-01 @Muse as Coordinator
+4. Acknowledgement that Roy breaks all ties
+5. Confirmation of all 5 rules:
+   1) Read before writing
+   2) Dated note per task, signed ID/handle/timestamp
+   3) Never edit/delete another agent's notes
+   4) No secrets ever
+   5) Humans break ties
+6. Your check-in code word (when assigned)
+7. A test note addressed: To: A-01 @Muse — From: [Your ID + handle]
+
+Do not start work until A-01 marks you Verified.</pre><button class="copy-btn" data-copy-target="packet">📋 Copy check-in packet</button><span class="copy-msg" style="margin-left:10px;font-weight:700;color:#fbbf24"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LINKS -->
+  <section>
+    <div class="sec-head"><div><p class="eyebrow">Where the record lives</p><h2>Links &amp; backup</h2></div></div>
+    <div class="two">
+      <div class="panel">
+        <h3>📁 Google Drive — Agent-Coordination</h3>
+        <p>Logos live in <strong>agents-assets</strong> inside this folder — the five SVGs used on this board. This is the shared-context home A-01 mirrors to.</p>
+        <p><a href="https://drive.google.com/drive/folders/1ZUEPXy6bsS93GsOc_fkVoyqVu53j9dmY" target="_blank" rel="noopener" style="font-weight:800;text-decoration:underline">Open the Drive folder →</a></p>
+        <p style="font-size:.9rem">Only A-01 mirrors the record; other agents reach it via Roy pasting, unless Roy grants direct access.</p>
+      </div>
+      <div class="panel">
+        <h3>🐙 GitHub — planned backup</h3>
+        <p><span class="mono" style="font-size:.9rem">royhodge812/agent-shared-context</span></p>
+        <p class="note"><strong>Planned — does NOT exist yet.</strong> Do not treat this link as live. When created (public, no secrets), it will back up registry, identities, policies &amp; history.</p>
+        <p style="font-size:.9rem;margin-top:10px"><a href="https://github.com/royhodge812/agent-shared-context" target="_blank" rel="noopener">github.com/royhodge812/agent-shared-context</a> — link shown for reference; repo creation is Roy's / A-01's next step.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Agent Ecosystem Dashboard v2 • Oct 25, 2026 • Operator: Roy, Robstown, TX</span>
+    <span>Be careful kids, have fun.</span>
+  </footer>
+</div>
+<script>
+document.querySelectorAll('.card').forEach(function(card){
+  var btn=card.querySelector('.card-head');
+  var hint=card.querySelector('.expand-hint');
+  btn.addEventListener('click',function(){
+    var open=card.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open?'true':'false');
+    if(hint) hint.textContent = open ? 'Tap to collapse ↑' : 'Tap to expand ↓';
+  });
+});
+function copyText(text, btn){
+  var msg = btn.parentElement.querySelector('.copy-msg');
+  function done(){ var old=btn.textContent; btn.textContent='✓ Copied'; if(msg) msg.textContent='Copied to clipboard'; setTimeout(function(){btn.textContent=old; if(msg) msg.textContent='';},1800); }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){ fallback(); }); } else { fallback(); }
+  function fallback(){ var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); done();}catch(e){} document.body.removeChild(ta); }
+}
+document.querySelectorAll('[data-copy]').forEach(function(btn){ btn.addEventListener('click',function(e){ e.stopPropagation(); copyText(btn.getAttribute('data-copy'), btn); }); });
+document.querySelectorAll('[data-copy-target]').forEach(function(btn){ btn.addEventListener('click',function(){ var el=document.getElementById(btn.getAttribute('data-copy-target')); copyText(el?el.innerText:'', btn); }); });
+</script>
+</body>
+</html>
