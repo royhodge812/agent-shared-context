@@ -291,7 +291,7 @@
         <ul class="approval-list">
           <li>
             <p class="ap-title">a) Queue board header count fix</p>
-            <p class="ap-status"><b>Status:</b> Pending Roy’s decision. Approve to change the header count from 5 to 6, or Deny to leave it as-is (with the mismatch noted). The header on this page now shows 5 waiting / blocked / assigned and 2 done, matching the seven cards below: 2 Done, 2 Awaiting Roy decision, 1 Blocked / Not dispatched, 2 Assigned.</p>
+            <p class="ap-status"><b>Status:</b> Pending Roy’s decision. Approve to change the header count from 5 to 6, or Deny to leave it as-is (with the mismatch noted). The header on this page now shows 5 waiting / blocked / assigned and 2 done, matching the seven cards below: 2 Done, 2 Awaiting Roy decision, 0 Blocked / Not dispatched, 3 Assigned.</p>
           </li>
           <li>
             <p class="ap-title">b) Copilot role</p>
@@ -299,7 +299,7 @@
           </li>
           <li>
             <p class="ap-title">c) Flagged Gemini dispatch — three orders, 2026-10-25T06:49:00Z</p>
-            <p class="ap-status"><b>Status:</b> Blocked / Not dispatched (see card DISPATCH-2026-10-25-0649Z). Approve to re-issue any order properly as A-01, or Deny / discard all three.</p>
+            <p class="ap-status"><b>Status:</b> Re-issued as A-01 by Roy 2026-10-25 (audit + MCP only, wgmesh held) — see card DISPATCH-2026-10-25-0649Z, now Assigned. The original 2026-10-25T06:49:00Z “via A-03 @Gemini” dispatch is superseded and was NOT used. The A-02 wgmesh telemetry order is HELD, not re-issued. This item is no longer pending as a discard / re-issue question.</p>
           </li>
           <li>
             <p class="ap-title">d) Coordination visual 4th example</p>
@@ -429,23 +429,23 @@
             </div>
           </article>
 
-          <!-- c) MCP Gateway / Gemini dispatch -->
-          <article class="card" data-stage="blocked" data-agents="a02 a03 a04 a05 roy">
+          <!-- c) MCP Gateway / Gemini dispatch — re-issued as A-01 -->
+          <article class="card" data-stage="assigned" data-agents="a02 a03 a04 a05 roy">
             <button class="card-head" aria-expanded="false">
               <span class="card-top">
                 <span class="task-id">DISPATCH-2026-10-25-0649Z</span>
-                <span class="badge blocked">Blocked / Not dispatched</span>
+                <span class="badge assigned" style="white-space: normal;">Assigned (A-01 briefed, not yet handed to agent via Roy)</span>
               </span>
-              <h3>MCP Gateway / Gemini dispatch — three orders, none sent</h3>
-              <span class="agent-line">Named in the dispatch: A-05 @Grok (OBSIDIAN) · A-02 @Copilot (wgmesh telemetry) · A-04 @ChatGPT (addressing audit) · relayed via A-03 @Gemini</span>
-              <p class="now"><b>Right now:</b> Flagged by A-01 and held. No agent has been given this work.</p>
+              <h3>Gemini dispatch — re-issued as A-01 (addressing audit + MCP brief; wgmesh held)</h3>
+              <span class="agent-line">A-04 @ChatGPT (SUNSTONE) — addressing audit · A-05 @Grok (OBSIDIAN) — MCP brief · A-02 @Copilot wgmesh order HELD · original relay via A-03 @Gemini superseded</span>
+              <p class="now"><b>Right now:</b> Re-issued as A-01 on 2026-10-25, approved by Roy. A-01 has briefed the re-issued orders, but Roy has not yet handed them to the agents — no agent is working on them yet.</p>
               <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
             </button>
             <div class="card-body">
               <dl>
-                <div><dt>Detail</dt><dd>Flagged by A-01 — no record A-01 issued it; the 2026-10-25T06:49:00Z timestamp predates Grok’s verification; no central ledger exists; the wgmesh coding gate is not cleared. The packet bundled three orders: an MCP Gateway brief to A-05, wgmesh telemetry review to A-02, and a cross-agent addressing audit to A-04.</dd></div>
-                <div><dt>Last real update</dt><dd>2026-10-25 — A-01 flagged the dispatch; nothing dispatched.</dd></div>
-                <div><dt>Next action</dt><dd>Roy — discard it, or have A-01 re-issue a proper order?</dd></div>
+                <div><dt>Detail</dt><dd>Original 2026-10-25T06:49:00Z “via A-03 @Gemini” dispatch superseded, NOT used. Clean A-01 re-issue dated 2026-10-25, approved by Roy: A-04 @ChatGPT (SUNSTONE) addressing-protocol audit and A-05 @Grok (OBSIDIAN) MCP Gateway &amp; multi-agent telemetry brief, both to be pasted by Roy and returned to A-01 @Muse for verification. A-02 @Copilot wgmesh telemetry order HELD, not re-issued — no wgmesh DHT telemetry logs on file and the wgmesh coding gate is not cleared.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — Roy approved the re-issue; the clean A-01 re-issue supersedes the original flagged dispatch, which was NOT used.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — paste the A-04 addressing audit and A-05 MCP brief packets to those agents, and return their replies to A-01 for verification. The A-02 wgmesh order remains HELD.</dd></div>
               </dl>
             </div>
           </article>
