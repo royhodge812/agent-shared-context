@@ -15,6 +15,6 @@ No secrets, ever. No passwords, keys, tokens, or private IDs in this repo.
 
 ## Roster at a glance
 
-Tier 0 Operator: Roy. Rank 1: A-01 @Muse, Coordinator and Context-of-Record. Rank 2: A-02 @Copilot, Task Agent / Analyst. Rank 3 Specialists: A-03 @Gemini, A-04 @ChatGPT, A-05 @Grok (awaiting check-in).
+Tier 0 Operator: Roy. Rank 1: A-01 @Muse, Coordinator and Context-of-Record. Rank 2: A-02 @Copilot, Task Analysis, Planning, and Quality Assurance Agent. Rank 3 Specialists: A-03 @Gemini (API-callable since 2026-11-07), A-04 @ChatGPT, A-05 @Grok. Roster 5/5 verified 2026-10-25.
 
 Live Drive folder: Agent-Coordination — https://drive.google.com/drive/folders/1ZUEPXy6bsS93GsOc_fkVoyqVu53j9dmY

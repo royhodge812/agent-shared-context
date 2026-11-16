@@ -1,18 +1,19 @@
 # Check-in History — Roy's Agent Ecosystem
 **Consolidated history, verified by A-01 @Muse on 2026-10-25 against the Registry, History, and Grok check-in on file.**
 **Filed 2026-10-28 on Roy's approval ("definitely document what each AI does and when they check in").**
-**This document records what each agent does and when it checked in. It does not authorize any agent to act on its own — Roy is the courier via paste, and Roy breaks all ties.**
+**Updated 2026-11-15:** Gemini is API-callable since 2026-11-07 (see A-03 below); the daily Approval Digest now arrives at 07:08 CT inside the single merged morning message (since 2026-11-05).
+**This document records what each agent does and when it checked in. It does not authorize any agent to act on its own — Roy is the courier via paste for the manual agents (Copilot, ChatGPT, Grok); Gemini is reached via its API since 2026-11-07. Roy breaks all ties.**
 
 ## Roster (5/5 verified, 2026-10-25)
 - **Tier 0 — Roy** — Human in charge. Breaks all ties, approves spending/sending/posting/filing, overrules any agent.
 - **Rank 1 — A-01 @Muse (RoysMuseAgent_001)** — Coordinator and Context-of-Record. Keeps the shared record, briefs tasks, verifies results, routes work, mirrors to Drive/GitHub. Must not approve for Roy. Carries no check-in code word.
 - **Rank 2 — A-02 @Copilot (IRONWOOD)** — Task Analysis, Planning, and Quality Assurance Agent (title approved 2026-10-25; was "Task Agent / Analyst"). Primary reviewer consolidating/critiquing specialist outputs before A-01 verification.
-- **Rank 3 — A-03 @Gemini (JUNIPER)** — Specialist.
-- **Rank 3 — A-04 @ChatGPT (SUNSTONE)** — Specialist. Honest limit: its acknowledgement lives in its own conversation only; it has not independently written to an external repository; Roy is the courier via paste. This paste limitation applies to the other agents too.
+- **Rank 3 — A-03 @Gemini (JUNIPER)** — Specialist. Callable through its API since 2026-11-07 (connector custom.google-gemini, proven test call; CAM-01 ran through the API) — no longer paste-only.
+- **Rank 3 — A-04 @ChatGPT (SUNSTONE)** — Specialist. Honest limit: its acknowledgement lives in its own conversation only; it has not independently written to an external repository; Roy is the courier via paste. This paste limitation also applies to Copilot and Grok — but not to Gemini, which is API-callable since 2026-11-07.
 - **Rank 3 — A-05 @Grok (OBSIDIAN)** — Specialist. Grok 4 (built by xAI), @Grok.
 
 ## What each agent does
-- **A-01 @Muse:** briefs, verifies, files, mirrors, runs the Queue Board and the daily Approval Digest (9:00 AM CT, from 2026-10-26).
+- **A-01 @Muse:** briefs, verifies, files, mirrors, runs the Queue Board and the daily Approval Digest (07:08 CT, inside the single merged morning message since 2026-11-05; the separate 9:00 AM digest ended then).
 - **A-02 @Copilot:** analysis, task breakdown, planning, QA review of specialist outputs, figure checks with sources or "assumed" on every number.
 - **A-03 @Gemini:** research synthesis, visual/map review, with Established / Approximate / Unresolved labels.
 - **A-04 @ChatGPT:** writing drafts (DEV build-logs, scripts) for Roy's review only — drafts only, never posted without Roy's yes on that specific post.

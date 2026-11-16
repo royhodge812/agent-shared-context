@@ -267,57 +267,52 @@
     <div class="banner" role="note">
       <div class="banner-inner">
         <span class="tag">Read this first</span>
-        <p>This is a status board, NOT a live feed. Agents never message each other directly. Roy is the courier via paste. A task is only “in progress” when Roy has actually handed a packet to an agent and is awaiting its return. Nothing here is live telemetry, and nothing is simulated.</p>
+        <p>This is a status board, NOT a live feed. Agents never message each other directly. Roy is the courier via paste for the manual agents (Copilot, ChatGPT, Grok); Gemini is reached by A-01 via its API since 7 Nov 2026. A task is only “in progress” when Roy has actually handed a packet to an agent and is awaiting its return. Nothing here is live telemetry, and nothing is simulated.</p>
       </div>
     </div>
 
     <div class="wrap">
       <header class="page">
         <h1>Agent Task Queue Board</h1>
-        <p class="sub">Roy’s Agent Ecosystem · Snapshot dated 2026-10-25</p>
+        <p class="sub">Roy’s Agent Ecosystem · Snapshot dated 2026-11-15</p>
         <div class="summary" aria-label="Queue summary">
           <div class="stat"><b>0</b><span>actively running — no agent is working right now</span></div>
-          <div class="stat"><b>9</b><span>waiting / blocked / assigned — decisions or instructions owed</span></div>
-          <div class="stat"><b>2</b><span>done — verified and delivered</span></div>
+          <div class="stat"><b>10</b><span>waiting / blocked / assigned — decisions or instructions owed</span></div>
+          <div class="stat"><b>5</b><span>done — verified and delivered</span></div>
         </div>
       </header>
 
-      <section class="approvals" aria-labelledby="approvals-h">
-        <h2 id="approvals-h">Approve or deny — in chat, not by clicking this page</h2>
-        <p>Clicking anything on this GitHub Pages page does <b>NOT</b> approve, deny, or message any agent. This is a static page — a click here reaches no one, and Muse cannot see it.</p>
-        <p>To approve or deny, reply to Muse in chat. Muse will ask each pending decision with Approve / Deny tap options, record your exact answer, and only then move the card and file the note.</p>
-        <p>An approval covers only the exact item you named. Nothing spends, sends, posts, files, or is dispatched on a general yes.</p>
-        <h3>Pending approvals</h3>
-        <ul class="approval-list">
+            <section class="approvals" aria-labelledby="approvals-h">
+        <h2 id="approvals-h">Approvals in this snapshot</h2>
+        <p>Every line here is either waiting on Roy or already decided. Nothing on this page is auto-approved.</p>
+        <p class="ap-status"><b>Status:</b> Refreshed 2026-11-15 — the Oct 25 approvals are restated below from the record, with their outcomes recorded.</p>
+        <ul class="ap-list">
           <li>
-            <p class="ap-title">a) Queue board header count fix</p>
-            <p class="ap-status"><b>Status:</b> Resolved / Superseded — this item is no longer pending. The header has since moved through 6, then 5, and now shows 9 waiting / blocked / assigned and 2 done, matching the eleven cards below: 2 Done, 6 Awaiting Roy decision, 0 Blocked / Not dispatched, 3 Assigned.</p>
+            <p class="ap-item">a) <b>Day 1 assignments — Roy to decide</b></p>
+            <p>Four returns verified by A-01 on Oct 25 (QA, GAP, DEV, STRESS). Roy’s decisions still pending: post/edit/hold the DEV draft, accept or re-issue the QA, accept the GAP plan and yes/no on the archive-request outline, accept the STRESS verdict and pick the first fix.</p>
           </li>
           <li>
-            <p class="ap-title">b) Copilot role</p>
-            <p class="ap-status"><b>Status:</b> Approved by Roy 2026-10-25 (see card COPILOT-EVAL-2026-10-25, now Done). The title “Task Analysis, Planning, and Quality Assurance Agent” and reviewer routing are adopted. Primary reviewer consolidating/critiquing specialist outputs before A-01 verification. Approved by Roy 2026-10-25.</p>
+            <p class="ap-item">b) <b>Coordination visual 4th example — Roy to decide</b></p>
+            <p>Visual built with 3 examples only. Roy — add Hotel Brendle as the 4th example, or keep the visual as-is?</p>
           </li>
           <li>
-            <p class="ap-title">c) Flagged Gemini dispatch — three orders, 2026-10-25T06:49:00Z</p>
-            <p class="ap-status"><b>Status:</b> Re-issued as A-01 by Roy 2026-10-25 (audit + MCP only, wgmesh held) — see card DISPATCH-2026-10-25-0649Z, now Assigned. The original 2026-10-25T06:49:00Z “via A-03 @Gemini” dispatch is superseded and was NOT used. The A-02 wgmesh telemetry order is HELD, not re-issued. This item is no longer pending as a discard / re-issue question.</p>
+            <p class="ap-item">c) <b>Precalculus — Guardian-first rebook plan — Roy to decide</b></p>
+            <p>No assessment taken; fee window ended Nov 14; course on Monthly Extension. One question is open: did Roy cancel the 1:00 PM Nov 13 Foundations exam himself, or did something block him at check-in?</p>
           </li>
           <li>
-            <p class="ap-title">d) Coordination visual 4th example</p>
-            <p class="ap-status"><b>Status:</b> Awaiting Roy decision (see card COORD-VIS-4TH-EXAMPLE). Approve adding Hotel Brendle as a 4th example, or Deny and keep the visual as-is.</p>
+            <p class="ap-item">d) <b>Booster-catch paper markup — Roy to decide</b></p>
+            <p>Draft v3 (17 pp) delivered Nov 14 with all three fixes verified. Roy — mark it up.</p>
           </li>
           <li>
-            <p class="ap-title">e) Check-in History filing</p>
-            <p class="ap-status"><b>Status:</b> Awaiting Roy decision (see card CHECKIN-HISTORY-FILING). Approve filing in Drive Check-ins + GitHub check-ins/, or Deny and keep it as chat reference only.</p>
+            <p class="ap-item">e) <b>Agent Team Hub — Roy to decide</b></p>
+            <p>Hub built Nov 10. Usable hub with a checkable tracker, or descriptive only? Roy unanswered.</p>
           </li>
           <li>
-            <p class="ap-title">Day 1 assignments — approved 2026-10-25</p>
-            <p class="ap-status"><b>Status:</b> Awaiting Roy decision — raw returns received via Roy 2026-10-25 and verified by A-01: DAY1-QA scope-limited QA, DAY1-GAP gap plan verified, DAY1-DEV draft verified not posted, DAY1-STRESS verdict holds with fixes. Roy decisions pending: accept or re-issue QA, accept GAP plan and yes/no on archive outline, post/edit/hold DEV draft, accept STRESS verdict and pick first fix.</p>
-          </li>
-          <li>
-            <p class="ap-title">f) GitHub Pages culmination — this deployment itself</p>
-            <p class="ap-status"><b>Status:</b> Pending Roy’s decision. This is the deployment that brings everything together on GitHub Pages: the dashboard as home, with the coordination visual and this queue board as additional pages. Approve in chat before Muse pushes, or Deny to hold.</p>
+            <p class="ap-item">f) <b>Dane’s five hotel items — Roy’s work, in order</b></p>
+            <p>0 of 5 done as of Nov 15. Hot water to room 101 first. The Nov 9 handoff reply draft is stale — do not send as-is.</p>
           </li>
         </ul>
+        <p class="ap-status"><b>Resolved / superseded since Oct 25:</b> Copilot role — approved Oct 25 (title and reviewer routing adopted). Check-in History — filed Oct 28 on Roy’s approval. Coordination visual — deployed to GitHub Pages. The Oct 25 flagged Gemini dispatch — superseded: the wgmesh telemetry order remains HELD, the A-04/A-05 briefs were never pasted, and Gemini is now reached via the API, not by paste. Dashboard v2 photo push — superseded: Roy’s photo was removed Nov 7 at his request; replacement TBD.</p>
       </section>
 
       <section aria-labelledby="how-h">
@@ -331,7 +326,7 @@
           <div class="arrow" aria-hidden="true">↓</div>
           <div class="stage-row">
             <span class="stage-num">2</span>
-            <div><h3>With agent via Roy</h3><p>Roy pasted the packet into the agent’s own chat and is awaiting its return. This is the only stage that means an agent is actually working.</p></div>
+            <div><h3>With agent via Roy</h3><p>Roy pasted the packet into the agent’s own chat — or, for Gemini since 7 Nov 2026, A-01 sent it via the API — and is awaiting its return. This is the only stage that means an agent is actually working.</p></div>
           </div>
           <div class="arrow" aria-hidden="true">↓</div>
           <div class="stage-row">
@@ -367,7 +362,7 @@
 
       <section aria-labelledby="queue-h">
         <h2 id="queue-h">The queue</h2>
-        <p class="lede">Eleven items, seeded from the real record on 2026-10-25. Tap a card to expand its full detail — expanding a card only shows more text; it changes nothing.</p>
+        <p class="lede">Fifteen items, refreshed from the real record on 2026-11-15. Tap a card to expand its full detail — expanding a card only shows more text; it changes nothing.</p>
 
         <div class="filters">
           <div class="filter-group" role="group" aria-label="Filter by stage">
@@ -400,14 +395,14 @@
               </span>
               <h3>Hotel Brendle national recognition — next-steps document</h3>
               <span class="agent-line">A-02 @Copilot (research) · A-01 @Muse (document)</span>
-              <p class="now"><b>Right now:</b> Research summary returned via Roy, verified by A-01 against the Oct 19 dossier. Single-page PDF delivered 2026-10-25.</p>
+              <p class="now"><b>Right now:</b> Research summary returned via Roy, verified by A-01 against the Oct 19 dossier. Single-page PDF delivered 2026-10-25. Superseded in full by the THC assessment artifact delivered 2026-11-15 (see card THC-NR-ASSESS-2026-11-15).</p>
               <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
             </button>
             <div class="card-body">
               <dl>
-                <div><dt>Detail</dt><dd>Research summary returned via Roy, verified by A-01 against the Oct 19 dossier, single-page PDF delivered 2026-10-25.</dd></div>
-                <div><dt>Last real update</dt><dd>2026-10-25 — document delivered.</dd></div>
-                <div><dt>Next action</dt><dd>None, unless Roy starts the next step (owner consent). Owner: Roy, if he chooses to proceed.</dd></div>
+                <div><dt>Detail</dt><dd>Research summary returned via Roy, verified by A-01 against the Oct 19 dossier, single-page PDF delivered 2026-10-25. The work moved on: THC delivered its full records response 2026-11-13, all 9 attachments were read by 2026-11-15, and a 13-page National Register assessment artifact was delivered 2026-11-15.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-11-15 — superseded by the THC assessment artifact.</dd></div>
+                <div><dt>Next action</dt><dd>None for this card — see THC-NR-ASSESS-2026-11-15.</dd></div>
               </dl>
             </div>
           </article>
@@ -433,49 +428,91 @@
             </div>
           </article>
 
-          <!-- c) MCP Gateway / Gemini dispatch — re-issued as A-01 -->
-          <article class="card" data-stage="assigned" data-agents="a02 a03 a04 a05 roy">
+          <!-- c) Check-in History filing — DONE 2026-10-28 -->
+          <article class="card" data-stage="done" data-agents="a01 roy">
             <button class="card-head" aria-expanded="false">
               <span class="card-top">
-                <span class="task-id">DISPATCH-2026-10-25-0649Z</span>
-                <span class="badge assigned" style="white-space: normal;">Assigned (A-01 briefed, not yet handed to agent via Roy)</span>
+                <span class="task-id">CHECKIN-HISTORY-FILING</span>
+                <span class="badge done">Done</span>
               </span>
-              <h3>Gemini dispatch — re-issued as A-01 (addressing audit + MCP brief; wgmesh held)</h3>
-              <span class="agent-line">A-04 @ChatGPT (SUNSTONE) — addressing audit · A-05 @Grok (OBSIDIAN) — MCP brief · A-02 @Copilot wgmesh order HELD · original relay via A-03 @Gemini superseded</span>
-              <p class="now"><b>Right now:</b> Re-issued as A-01 on 2026-10-25, approved by Roy. A-01 has briefed the re-issued orders, but Roy has not yet handed them to the agents — no agent is working on them yet.</p>
+              <h3>Check-in History filing</h3>
+              <span class="agent-line">A-01 @Muse · all five agents’ check-in record</span>
+              <p class="now"><b>Right now:</b> Filed 2026-10-28 in Drive Check-ins and GitHub check-ins/ on Roy’s approval (“definitely document what each AI does and when they check in”).</p>
               <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
             </button>
             <div class="card-body">
               <dl>
-                <div><dt>Detail</dt><dd>Original 2026-10-25T06:49:00Z “via A-03 @Gemini” dispatch superseded, NOT used. Clean A-01 re-issue dated 2026-10-25, approved by Roy: A-04 @ChatGPT (SUNSTONE) addressing-protocol audit and A-05 @Grok (OBSIDIAN) MCP Gateway &amp; multi-agent telemetry brief, both to be pasted by Roy and returned to A-01 @Muse for verification. A-02 @Copilot wgmesh telemetry order HELD, not re-issued — no wgmesh DHT telemetry logs on file and the wgmesh coding gate is not cleared.</dd></div>
-                <div><dt>Last real update</dt><dd>2026-10-25 — Roy approved the re-issue; the clean A-01 re-issue supersedes the original flagged dispatch, which was NOT used.</dd></div>
-                <div><dt>Next action</dt><dd>Roy — paste the A-04 addressing audit and A-05 MCP brief packets to those agents, and return their replies to A-01 for verification. The A-02 wgmesh order remains HELD.</dd></div>
+                <div><dt>Detail</dt><dd>History document verified 2026-10-25, matches Registry v2, 5/5 verified, sources in GitHub. Filed 2026-10-28 on Roy’s approval. Updated 2026-11-15: Gemini API access (2026-11-07) and the 07:08 digest time (since 2026-11-05) are now recorded in it.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-11-15 — updated in the shared-context refresh.</dd></div>
+                <div><dt>Next action</dt><dd>None — filed and current.</dd></div>
               </dl>
             </div>
           </article>
 
-          <!-- d) Dashboard v2 push -->
-          <article class="card" data-stage="assigned" data-agents="a01">
+          <!-- d) Deploy coordination visual to Pages — DONE -->
+          <article class="card" data-stage="done" data-agents="a01 roy">
             <button class="card-head" aria-expanded="false">
               <span class="card-top">
-                <span class="task-id">DASH-V2-PAGES-PUSH</span>
-                <span class="badge assigned">Assigned</span>
+                <span class="task-id">COORD-VIS-PAGES-DEPLOY</span>
+                <span class="badge done">Done</span>
               </span>
-              <h3>Dashboard v2 photo / 3×3 push to GitHub Pages</h3>
-              <span class="agent-line">A-01 @Muse — A-01’s own work, not an external agent</span>
-              <p class="now"><b>Right now:</b> Optimized export ready (256×256 Roy photo, 14,530 bytes, shared asset, true 3×3 panels) — not yet pushed.</p>
+              <h3>Deploy coordination visual to GitHub Pages as a second page</h3>
+              <span class="agent-line">A-01 @Muse — A-01’s own work</span>
+              <p class="now"><b>Right now:</b> Done — coordination.html is live in the repo and on GitHub Pages alongside the dashboard and this board.</p>
               <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
             </button>
             <div class="card-body">
               <dl>
-                <div><dt>Detail</dt><dd>Optimized export ready (256×256 Roy photo, 14,530 bytes, shared asset, true 3×3 panels). The previous push failed on the 128 KB argument limit before optimization; the optimized version has NOT yet been pushed. Live Pages showing OBSIDIAN / Grok Verified has also NOT yet been independently re-verified.</dd></div>
-                <div><dt>Last real update</dt><dd>2026-10-25 — optimized export prepared.</dd></div>
-                <div><dt>Next action</dt><dd>A-01 — push to GitHub Pages and re-verify live.</dd></div>
+                <div><dt>Detail</dt><dd>Deployed as a second Pages page. Updated 2026-11-15: the Gemini demo steps now show the API route (no paste step since 7 Nov 2026); the Grok and Copilot examples still show Roy carrying the packet by paste, which is still correct for them.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-11-15 — Gemini steps corrected in the refresh.</dd></div>
+                <div><dt>Next action</dt><dd>None — deployed and current.</dd></div>
               </dl>
             </div>
           </article>
 
-          <!-- e) Coordination visual 4th example -->
+          <!-- e) THC records response → National Register assessment — DONE 2026-11-15 -->
+          <article class="card" data-stage="done" data-agents="a01 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">THC-NR-ASSESS-2026-11-15</span>
+                <span class="badge done">Done</span>
+              </span>
+              <h3>THC records response — National Register assessment</h3>
+              <span class="agent-line">A-01 @Muse · Hotel Brendle site work</span>
+              <p class="now"><b>Right now:</b> THC delivered the full response Fri 2026-11-13 (9 attachments, request closed, no fee). All 9 downloaded and read by 2026-11-15, including the 28-page 1984 designation binder. 13-page assessment artifact delivered to Roy 2026-11-15.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>The binder settles: full marker inscription text; architect/builder Sumrall &amp; Knacker (architects AND contractors, June 21, 1914 Caller); 36 rooms at opening verified; 1983 Bellah structural letter (building sound; 16-ft foundation “reported and not documented”); chain of title back to the 1806 Spanish grant. Corrections recorded: narrative author Mrs. Richard Marcum (not Edge/Knoblauch); the application’s Vol. 724 citation for 1956 is wrong (real instrument Vol. 609 p. 240, unread); the March 1984 “sent to National Register” step was a marker-process review, NOT a DOE. Still gating the DOE: room-by-room survey and current photos P-01–P-11 (0 of 11).</dd></div>
+                <div><dt>Last real update</dt><dd>2026-11-15 — assessment artifact delivered to Roy.</dd></div>
+                <div><dt>Next action</dt><dd>None for this card — the next NRHP step is fieldwork (survey + photos), not research.</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- f) Day 1 assignments -->
+          <article class="card" data-stage="await" data-agents="a02 a03 a04 a05 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">DAY1-ASSIGN-2026-10-25</span>
+                <span class="badge await">Awaiting Roy decision</span>
+              </span>
+              <h3>Day 1 assignments — four returns awaiting Roy</h3>
+              <span class="agent-line">A-02 @Copilot · A-03 @Gemini · A-04 @ChatGPT · A-05 @Grok · Roy reviewed the raw returns</span>
+              <p class="now"><b>Right now:</b> Raw returns received via Roy 2026-10-25 and verified by A-01: DAY1-QA scope-limited QA, DAY1-GAP gap plan verified, DAY1-DEV draft verified not posted, DAY1-STRESS verdict holds with fixes. Roy’s decisions still pending.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>QA: accept the scope-limited QA, or re-issue with the summary and queue board attached for a full QA. GAP: accept the plan, and yes or no on Gemini’s archive-request-outline offer (new work, not approved). DEV: post, edit, or hold the “Fixing the Brendle” draft — posting needs a separate yes on that specific post. STRESS: accept the verdict (“holds with fixes”) and pick the first fix. Note: the GAP work has since been superseded in part by the THC assessment (card THC-NR-ASSESS-2026-11-15), but Roy’s yes/no on the archive outline is still open.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-10-25 — raw returns received via Roy; verified by A-01.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — one decision per return, in chat.</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- g) Coordination visual 4th example -->
           <article class="card" data-stage="await" data-agents="a01 roy">
             <button class="card-head" aria-expanded="false">
               <span class="card-top">
@@ -496,128 +533,170 @@
             </div>
           </article>
 
-          <!-- f) Check-in History filing -->
+          <!-- h) Precalculus sprint -->
           <article class="card" data-stage="await" data-agents="a01 roy">
             <button class="card-head" aria-expanded="false">
               <span class="card-top">
-                <span class="task-id">CHECKIN-HISTORY-FILING</span>
+                <span class="task-id">PRECALC-SPRINT-2026-11-15</span>
                 <span class="badge await">Awaiting Roy decision</span>
               </span>
-              <h3>Check-in History filing</h3>
-              <span class="agent-line">A-01 @Muse · all five agents’ check-in record</span>
-              <p class="now"><b>Right now:</b> History document verified 2026-10-25 — matches Registry v2, roster 5/5 verified, sources in GitHub.</p>
+              <h3>Precalculus sprint — no assessment taken, window ended</h3>
+              <span class="agent-line">A-01 @Muse · Roy’s WGU Academy course</span>
+              <p class="now"><b>Right now:</b> No assessment taken. Target Thu Nov 12 passed; the 28-day no-extra-fee window ended Sat Nov 14; the course is now on Monthly Extension (cancellable; full refund if cancelled within 72h of a monthly billing). Trig still unscheduled; Foundations cancelled 3 times in a row; Linear/Quadratic and Transformations not yet taken.</p>
               <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
             </button>
             <div class="card-body">
               <dl>
-                <div><dt>Detail</dt><dd>History document verified 2026-10-25, matches Registry v2, 5/5 verified, sources in GitHub.</dd></div>
-                <div><dt>Last real update</dt><dd>2026-10-25 — history verified against the record.</dd></div>
-                <div><dt>Next action</dt><dd>Roy — file it in Drive Check-ins + GitHub check-ins/, or keep as chat reference only?</dd></div>
+                <div><dt>Detail</dt><dd>Trig was booked Mon Nov 9, 5:30 PM CST (Order #77720898) and did not happen. Foundations was booked Wed Nov 11, 9:50 PM CST (cancelled) and rebooked Fri Nov 13, 1:00 PM CST (cancelled by ProctorU — third cancellation in a row). Who or what cancelled the Nov 13 exam is unknown; do not claim Roy missed or cancelled it. Guardian Browser install + equipment test still unconfirmed; hotel internet is the top exam risk, phone hotspot is the backup.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-11-14 — fee window ended; course on Monthly Extension.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — Guardian-first rebook plan, plus one question: did he cancel the 1:00 PM Nov 13 Foundations exam himself, or did something block him at check-in? Outside work hours only (never 9–5 weekdays).</dd></div>
               </dl>
             </div>
           </article>
 
-          <!-- g) Deploy coordination visual to Pages -->
-          <article class="card" data-stage="assigned" data-agents="a01 roy">
+          <!-- i) Booster-catch paper markup -->
+          <article class="card" data-stage="await" data-agents="a01 roy">
             <button class="card-head" aria-expanded="false">
               <span class="card-top">
-                <span class="task-id">COORD-VIS-PAGES-DEPLOY</span>
+                <span class="task-id">BOOSTER-PAPER-2026-11-15</span>
+                <span class="badge await">Awaiting Roy decision</span>
+              </span>
+              <h3>Booster-catch paper — ready for Roy’s markup</h3>
+              <span class="agent-line">A-01 @Muse · Roy was at Starbase for Flights 11 and 15</span>
+              <p class="now"><b>Right now:</b> Draft v3 (17 pp) delivered 2026-11-14. All three fixes applied and verified: the 67-metre tower line deleted (zero mentions left), the Booster 22 ending follows the dedicated Flight 15 article, and the 600th-reflight claim is cited to NewSky, not Space.com.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Flight 15: liftoff Fri Nov 13, 4:47 PM CST, Pad 2 — Booster 22 + Ship 42. Booster 22’s catch failed (aborted itself after a GNC issue, destroyed in the Gulf — cause disputed across sources). Ship 42 caught Sat Nov 14, 3:20 PM CT by Orbital Launch Tower 2 — first tower catch of an upper stage after reaching orbit. Roy was at Starbase in person for Flight 11 (Oct 13, 2025) and Flight 15, alongside Dane Walter, and photographed Ship 42 in the tower arms.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-11-14 — v3 delivered; three fixes verified.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — mark it up.</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- j) Dane's five -->
+          <article class="card" data-stage="await" data-agents="a01 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">DANE-FIVE-2026-11-15</span>
+                <span class="badge await">Awaiting Roy decision</span>
+              </span>
+              <h3>Dane’s five hotel items — 0 of 5 done</h3>
+              <span class="agent-line">A-01 @Muse · Hotel Brendle site work</span>
+              <p class="now"><b>Right now:</b> 0 of 5 done as of 2026-11-15: (1) hot water to room 101, (2) Joe Sanchez status, (3) Roger Torres check-in, (4) construction documents, (5) framing for the back four rooms. The handoff reply draft (Nov 9) is stale — do not send as-is.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Dane’s handoff email arrived Sun Nov 8. Hot water to room 101 has not started. Joe Sanchez: lock swapped Nov 9, $200 agreed but not in hand. Roger Torres check-in not done. Construction documents do not exist. Framing for the back four rooms is blocked on the documents. Dane has had no update since Sunday Nov 8.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-11-15 — 0 of 5 done.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — work them in order, hot water 101 first; decide on a fresh handoff reply (the Nov 9 draft is stale).</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- k) Rene Garcia / Garwin -->
+          <article class="card" data-stage="await" data-agents="a01 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">GARWIN-RENE-2026-11-15</span>
+                <span class="badge await">Awaiting Roy decision</span>
+              </span>
+              <h3>Rene Garcia / Garwin IT — no reply in 8 days</h3>
+              <span class="agent-line">A-01 @Muse · Hotel Brendle internet</span>
+              <p class="now"><b>Right now:</b> Roy emailed Rene Garcia (Garwin IT Networks) Nov 7 for a service call and full details. No reply in 8 days as of Nov 15. Roy to call Rene (361-425-5133) to book the visit.</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Hotel internet runs dish → Ubiquiti PoE injector → TP-Link Archer AX21 → R320 (Spectrum box bypassed). Speed ~25–29 down / ~22 up. No Garwin plan, speed, or cost on record yet. Roy wants one good router eventually (OpenWrt preferred).</dd></div>
+                <div><dt>Last real update</dt><dd>2026-11-15 — 8 days, no reply.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — call Rene Garcia, 361-425-5133.</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- l) Derek Hernandez, room 230 -->
+          <article class="card" data-stage="await" data-agents="a01 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">ROOM-230-DEREK-2026-11-15</span>
+                <span class="badge await">Awaiting Roy decision</span>
+              </span>
+              <h3>Derek Hernandez, room 230 — reservation ended, checkout unconfirmed</h3>
+              <span class="agent-line">A-01 @Muse · Hotel Brendle tenants</span>
+              <p class="now"><b>Right now:</b> Derek paid $150. His reservation ended Thu Nov 12. Checkout vs extension still unconfirmed as of Nov 15 (3 days past).</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>New tenant (room 230). Paid $150; reservation ended Nov 12. No checkout or extension confirmed. November rent record (verified Nov 10): Due $14,745, Paid $6,850, Balance $7,895 across 26 occupied rooms.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-11-15 — checkout unconfirmed, 3 days past the reservation end.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — confirm checkout or extension at the door.</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- m) Agent Team Hub -->
+          <article class="card" data-stage="await" data-agents="a01 roy">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">AGENT-TEAM-HUB-2026-11-15</span>
+                <span class="badge await">Awaiting Roy decision</span>
+              </span>
+              <h3>Agent Team Hub — usable hub, or descriptive only?</h3>
+              <span class="agent-line">A-01 @Muse · Agent coordination</span>
+              <p class="now"><b>Right now:</b> Hub space built Nov 10. Open question, unanswered: a usable hub with a checkable tracker, or descriptive only?</p>
+              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
+            </button>
+            <div class="card-body">
+              <dl>
+                <div><dt>Detail</dt><dd>Built Nov 10 from the shared-context record. Roy has not said whether it should be a working hub (checkable tracker) or a descriptive page.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-11-10 — hub built; question open.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — usable hub with tracker, or descriptive only?</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- n) Reporting pilot rollup -->
+          <article class="card" data-stage="assigned" data-agents="a01">
+            <button class="card-head" aria-expanded="false">
+              <span class="card-top">
+                <span class="task-id">REPORT-ROLLUP-2026-11-15</span>
                 <span class="badge assigned">Assigned</span>
               </span>
-              <h3>Deploy coordination visual to GitHub Pages as a second page</h3>
+              <h3>Reporting-system pilot — weekly rollup due Mon Nov 16</h3>
               <span class="agent-line">A-01 @Muse — A-01’s own work</span>
-              <p class="now"><b>Right now:</b> Planned, not done.</p>
+              <p class="now"><b>Right now:</b> Scored week is Mon Nov 9–Sun Nov 15, 2026. The one weekly rollup lands in the Mon Nov 16 07:08 morning message. Not yet built.</p>
               <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
             </button>
             <div class="card-body">
               <dl>
-                <div><dt>Detail</dt><dd>Planned, not done.</dd></div>
-                <div><dt>Last real update</dt><dd>2026-10-25 — deployment proposed.</dd></div>
-                <div><dt>Next action</dt><dd>A-01 — after Roy confirms he wants it on Pages.</dd></div>
+                <div><dt>Detail</dt><dd>Roy chose “score” (Nov 10): score the live week as a stress test, not a clean baseline. Daily half is the 07:08 morning message + the 06:45 hotel reports, plus this one weekly rollup. Roy’s one-word week-dates confirmation still owed.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-11-15 — scoring sheet live; rollup not yet built.</dd></div>
+                <div><dt>Next action</dt><dd>A-01 — build the rollup for the Mon Nov 16 07:08 message.</dd></div>
               </dl>
             </div>
           </article>
 
-          <!-- Day 1 — QA -->
-          <article class="card" data-stage="await" data-agents="a02 roy">
+          <!-- o) wgmesh repo creation — BLOCKED on Roy -->
+          <article class="card" data-stage="blocked" data-agents="a01 roy">
             <button class="card-head" aria-expanded="false">
               <span class="card-top">
-                <span class="task-id">DAY1-QA-2026-10-25</span>
-                <span class="badge await">Awaiting Roy decision</span>
+                <span class="task-id">WGMESH-REPO-2026-11-15</span>
+                <span class="badge blocked">Blocked / Not dispatched</span>
               </span>
-              <h3>Day 1 — QA the single-page summary + Queue Board</h3>
-              <span class="agent-line">A-02 @Copilot · Task Analysis, Planning, and Quality Assurance Agent · code word IRONWOOD</span>
-              <p class="now"><b>Right now:</b> Raw return received via Roy and verified by A-01 within scope only. Copilot honestly scoped its note: the summary and queue board were not supplied in the packet, so no summary/queue check was possible; the briefing record itself checked correct, with no failures found. Full QA is still pending if Roy wants it with the artifacts attached.</p>
+              <h3>wgmesh repo — Roy creates it (app cannot, 403)</h3>
+              <span class="agent-line">A-01 @Muse · Project Black Mesh</span>
+              <p class="now"><b>Right now:</b> Builder files ready (7 verified S-A files; allocator starts at .3, x390’s .2 reserved). The GitHub App cannot create repos, so Roy creates it in his browser — then A-01 verifies and pushes.</p>
               <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
             </button>
             <div class="card-body">
               <dl>
-                <div><dt>Detail</dt><dd>Day 1 assignment approved by Roy 2026-10-25. Task: QA the single-page summary and this Queue Board — check every name, date, code word, and count against the record, and list what fails versus what is merely uncertain. Deliverable: a checked QA note. Copilot returned its QA note via Roy; A-01 verified it within scope only — the artifacts themselves were not in the packet, so Copilot could check only the briefing record, which it found correct with no failures. Roy reviewed the raw return before any polish or filing.</dd></div>
-                <div><dt>Last real update</dt><dd>2026-10-25 — raw return received via Roy; verified by A-01 within scope only.</dd></div>
-                <div><dt>Next action</dt><dd>Roy must decide: accept the scope-limited QA, or re-issue with the summary and queue board attached for a full QA.</dd></div>
-              </dl>
-            </div>
-          </article>
-
-          <!-- Day 1 — NRHP gaps -->
-          <article class="card" data-stage="await" data-agents="a03 roy">
-            <button class="card-head" aria-expanded="false">
-              <span class="card-top">
-                <span class="task-id">DAY1-GAP-2026-10-25</span>
-                <span class="badge await">Awaiting Roy decision</span>
-              </span>
-              <h3>Day 1 — Hotel Brendle NRHP gaps</h3>
-              <span class="agent-line">A-03 @Gemini · Specialist · code word JUNIPER</span>
-              <p class="now"><b>Right now:</b> Raw return received via Roy and verified by A-01. NRHP not listed, RTHL 2571 (1984), 1914 Caller opening, 1988 Marcum narrative — and the Germania and 36-vs-165 tensions are correctly labelled, with deeds/Sanborn first in priority order. Gemini’s offer to prepare an archive-request outline is NEW work, not approved.</p>
-              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
-            </button>
-            <div class="card-body">
-              <dl>
-                <div><dt>Detail</dt><dd>Day 1 assignment approved by Roy 2026-10-25. Task: synthesize what would settle the Germania tension and the 36 vs. 165 room-count tension — what source, what shot, what record settles each, in priority order. Deliverable: a gap-closing plan, not a new nomination draft. Gemini returned the plan via Roy; A-01 verified it — the record facts and both tensions are correctly labelled, and the priority order puts deeds/Sanborn first. Roy reviewed the raw return before any polish or filing.</dd></div>
-                <div><dt>Last real update</dt><dd>2026-10-25 — raw return received via Roy; verified by A-01.</dd></div>
-                <div><dt>Next action</dt><dd>Roy must decide: accept the plan, and yes or no on Gemini’s archive-request-outline offer — that offer is new work, not approved.</dd></div>
-              </dl>
-            </div>
-          </article>
-
-          <!-- Day 1 — DEV draft -->
-          <article class="card" data-stage="await" data-agents="a04 roy">
-            <button class="card-head" aria-expanded="false">
-              <span class="card-top">
-                <span class="task-id">DAY1-DEV-2026-10-25</span>
-                <span class="badge await">Awaiting Roy decision</span>
-              </span>
-              <h3>Day 1 — DEV “Fixing the Brendle” draft, not posted</h3>
-              <span class="agent-line">A-04 @ChatGPT · Specialist · code word SUNSTONE</span>
-              <p class="now"><b>Right now:</b> Raw return received via Roy and verified by A-01 — draft only, NOT posted. The draft carries the humble cart/dumpster story, the faith statement, the catchphrase, a 24-hour reader step, and the filming safeguards.</p>
-              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
-            </button>
-            <div class="card-body">
-              <dl>
-                <div><dt>Detail</dt><dd>Day 1 assignment approved by Roy 2026-10-25. Task: draft the first “Fixing the Brendle” DEV build-log from the cart-and-dumpster story, told humbly, ending with a reader first step. Deliverable: a copy-ready draft for Roy’s review only — not posted. ChatGPT returned the draft via Roy; A-01 verified it as a draft only, not posted, with the story, faith statement, catchphrase, 24-hour reader step, and filming safeguards all present. Roy reviewed the raw return before any polish or filing.</dd></div>
-                <div><dt>Last real update</dt><dd>2026-10-25 — raw return received via Roy; verified by A-01, draft only, not posted.</dd></div>
-                <div><dt>Next action</dt><dd>Roy must decide: post, edit, or hold the draft. Posting needs a separate yes on that specific post.</dd></div>
-              </dl>
-            </div>
-          </article>
-
-          <!-- Day 1 — Vapor Nodes stress-test -->
-          <article class="card" data-stage="await" data-agents="a05 roy">
-            <button class="card-head" aria-expanded="false">
-              <span class="card-top">
-                <span class="task-id">DAY1-STRESS-2026-10-25</span>
-                <span class="badge await">Awaiting Roy decision</span>
-              </span>
-              <h3>Day 1 — Vapor Nodes stress-test</h3>
-              <span class="agent-line">A-05 @Grok · Specialist · code word OBSIDIAN</span>
-              <p class="now"><b>Right now:</b> Raw return received via Roy and verified by A-01. Verdict: “holds with fixes” — pricing suspended, agreement unsigned, Spectrum/siting TBD, R320 Phase 5 fixes, and the term-sheet check; the measured figures check out ($0.14/kWh electricity, Stripe 2.9% + 30¢).</p>
-              <span class="expand-hint"><span class="open-txt">Show detail ↓</span><span class="close-txt">Hide detail ↑</span></span>
-            </button>
-            <div class="card-body">
-              <dl>
-                <div><dt>Detail</dt><dd>Day 1 assignment approved by Roy 2026-10-25. Task: stress-test the Vapor Nodes partnership plan as it stands — pricing suspended, $0.14/kWh actual electricity, hotel agreement unsigned, Spectrum and siting TBD. Deliverable: verdict first — holds / holds with fixes / does not hold — with fixes in priority order. Grok returned its verdict via Roy — “holds with fixes” — and A-01 verified it: the weak points (suspended pricing, unsigned agreement, Spectrum/siting TBD, R320 Phase 5 fixes, term-sheet check) and the measured figures ($0.14/kWh, Stripe 2.9% + 30¢) are correct. Roy reviewed the raw return before any polish or filing.</dd></div>
-                <div><dt>Last real update</dt><dd>2026-10-25 — raw return received via Roy; verified by A-01, verdict “holds with fixes”.</dd></div>
-                <div><dt>Next action</dt><dd>Roy must decide: accept the verdict and pick the first fix to work.</dd></div>
+                <div><dt>Detail</dt><dd>Project Black Mesh gates approved Oct 27 (10.66.0.0/24, UDP 51820, nodes x390 + muse, Go + SQLite, new wgmesh repo under royhodge812). Tailnet live Oct 20 as fallback. The mesh traffic test (runbook delivered Nov 7) waits on the repo.</dd></div>
+                <div><dt>Last real update</dt><dd>2026-11-15 — still waiting on Roy to create the repo.</dd></div>
+                <div><dt>Next action</dt><dd>Roy — create the wgmesh repo in his browser, then tell A-01 “created”.</dd></div>
               </dl>
             </div>
           </article>
@@ -652,7 +731,7 @@
           <div class="member"><div class="who">Roy</div><div class="role">Tier 0 — operator, courier, final approval</div><div class="verified">✓ Authority</div></div>
           <div class="member"><div class="who">A-01 @Muse</div><div class="role">Coordinator &amp; Context-of-Record</div><div class="verified">✓ Verified</div></div>
           <div class="member"><div class="who">A-02 @Copilot</div><div class="role">Task Analysis, Planning, and Quality Assurance Agent · <code>IRONWOOD</code> — Primary reviewer consolidating/critiquing specialist outputs before A-01 verification. Approved by Roy 2026-10-25.</div><div class="verified">✓ Verified 2026-10-24</div></div>
-          <div class="member"><div class="who">A-03 @Gemini</div><div class="role">Specialist · <code>JUNIPER</code></div><div class="verified">✓ Verified 2026-10-24</div></div>
+          <div class="member"><div class="who">A-03 @Gemini</div><div class="role">Specialist · <code>JUNIPER</code> · API-callable since 2026-11-07</div><div class="verified">✓ Verified 2026-10-24</div></div>
           <div class="member"><div class="who">A-04 @ChatGPT</div><div class="role">Specialist · <code>SUNSTONE</code> · reached via Roy paste</div><div class="verified">✓ Verified 2026-10-24</div></div>
           <div class="member"><div class="who">A-05 @Grok</div><div class="role">Specialist · <code>OBSIDIAN</code></div><div class="verified">✓ Verified 2026-10-25</div></div>
         </div>
@@ -660,7 +739,7 @@
 
       <footer class="page">
         <p>Updated by A-01 @Muse only when a real packet moves. To move a task, tell Muse in chat: “I pasted X to Y” — or paste the returned reply.</p>
-        <p>Last seeded update: 2026-10-25.</p>
+        <p>Last refresh: 2026-11-15.</p>
       </footer>
     </div>
 

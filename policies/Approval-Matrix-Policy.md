@@ -1,6 +1,7 @@
 # Approval Matrix Policy
 
 **Date:** 2026-10-25
+**Amendment 2026-11-15:** the Daily Approval Digest time changed 2026-11-05 — it now arrives inside the single merged 07:08 morning message (America/Chicago); the separate 9:00 AM digest is gone.
 **Operator:** Roy Albert Hodge Jr. — Tier 0
 **Coordinator:** A-01 @Muse
 **Roster:** A-02 @Copilot (IRONWOOD), Task Analysis, Planning, and Quality Assurance Agent; A-03 @Gemini (JUNIPER), Specialist; A-04 @ChatGPT (SUNSTONE), Specialist; A-05 @Grok (OBSIDIAN), Specialist
@@ -66,9 +67,9 @@ Items Roy does not answer in the digest are not auto-approved:
 - Consequential items stay Held and return in the next day's digest.
 - Internal Medium and Low items follow their notice periods in this policy, and are listed in the digest for review or reversal.
 
-## Daily Approval Digest delivered at 9:00 AM CT daily
+## Daily Approval Digest delivered at 07:08 CT daily
 
-The Daily Approval Digest is delivered at **9:00 AM CT daily** (America/Chicago), as confirmed by Roy.
+The Daily Approval Digest is delivered at **07:08 CT daily** (America/Chicago), inside the single merged morning message, as confirmed by Roy. The separate 9:00 AM digest ended 2026-11-05.
 
 ## The switch is on for internal approvals and never on for consequential ones
 
@@ -103,7 +104,7 @@ What happens: A-01 delivers the decision packet to Roy in chat, and the 24-hour 
 
 What is logged: task ID, date, the stage move taken, that it qualified as Low and Internal / Reversible after the full notice period, and the reversal path — move the card back to its prior stage.
 
-What Roy sees in the digest: the approval is reported in the next Daily Approval Digest at 9:00 AM CT, listed for review or reversal.
+What Roy sees in the digest: the approval is reported in the next Daily Approval Digest at 07:08 CT, listed for review or reversal.
 
 ### Example B — Medium internal verified-note filing after 72 hours
 
@@ -113,7 +114,7 @@ What happens: A-01 delivers the decision packet to Roy in chat, and the 72-hour 
 
 What is logged: task ID, date, the filing taken, that it qualified as Medium and Internal / Reversible after the full notice period, and the reversal path — remove or supersede the filed note with a dated correction.
 
-What Roy sees in the digest: the item is listed in the digests during its notice period, and the approval is reported in the next Daily Approval Digest at 9:00 AM CT after it proceeds, for review or reversal.
+What Roy sees in the digest: the item is listed in the digests during its notice period, and the approval is reported in the next Daily Approval Digest at 07:08 CT after it proceeds, for review or reversal.
 
 ### Example C — High consequential DEV post held past its deadline
 
@@ -123,7 +124,7 @@ What happens: A-01 prepares the decision packet and Roy sets the deadline for th
 
 What is logged: the item is carried as Held, not approved, with its task ID and deadline. No Muse approval is entered, because Muse has no approval power over a consequential action.
 
-What Roy sees in the digest: the post appears in the next Daily Approval Digest at 9:00 AM CT as Held, so Roy can approve or deny it in that single check-in.
+What Roy sees in the digest: the post appears in the next Daily Approval Digest at 07:08 CT as Held, so Roy can approve or deny it in that single check-in.
 
 ### Example D — Urgent consequential item escalating the same day
 
@@ -133,7 +134,7 @@ What happens: the item stays Roy-only, with no timeout and no Muse approval. A-0
 
 What is logged: the escalation, its task ID, what the action would do, and that it is awaiting Roy's explicit decision. Nothing proceeds on silence.
 
-What Roy sees in the digest: in addition to the immediate escalation, the item is named in the Daily Approval Digest at 9:00 AM CT if it is still pending at that time, with its task ID, what it would do, and its Urgent priority.
+What Roy sees in the digest: in addition to the immediate escalation, the item is named in the Daily Approval Digest at 07:08 CT if it is still pending at that time, with its task ID, what it would do, and its Urgent priority.
 
 ---
 

@@ -177,7 +177,7 @@
 
       <div class="honesty" role="note">
         <span class="tag">READ FIRST</span>
-        <p><strong>This is a visual demonstration of the real workflow — not a live control panel, and not live agent-to-agent messaging.</strong> In reality the agents do <strong>not</strong> message each other directly: Roy is the courier via paste, A-01 @Muse coordinates and verifies, and Roy approves anything that spends, sends, posts, or files. Clicking a node or a step here only moves the animation — it does not message any agent.</p>
+        <p><strong>This is a visual demonstration of the real workflow — not a live control panel, and not live agent-to-agent messaging.</strong> In reality the agents do <strong>not</strong> message each other directly: Roy is the courier via paste for the manual agents (Copilot, ChatGPT, Grok) — Gemini is reached by A-01 via its API since 7 Nov 2026 — A-01 @Muse coordinates and verifies, and Roy approves anything that spends, sends, posts, or files. Clicking a node or a step here only moves the animation — it does not message any agent.</p>
       </div>
 
       <section id="loop" style="margin-top:34px">
@@ -252,7 +252,7 @@
               <div class="nsub">agent-shared-context<br/>backup mirror</div>
             </div>
 
-            <div id="carrynote">Roy carries the packet — paste, by hand. No direct agent-to-agent wire exists.</div>
+            <div id="carrynote">Roy carries the packet — paste, by hand — for the manual agents. Gemini is reached via the API. No direct agent-to-agent wire exists.</div>
             <div class="dot" id="dot1" style="background:var(--drive);color:var(--drive)"></div>
             <div class="dot" id="dot2" style="background:var(--github);color:var(--github)"></div>
             <div id="packet">
@@ -505,10 +505,10 @@
              text:'Roy\u2019s instruction: the roster changed, so the public dashboard has to match it — exactly, with nothing shown that the record doesn\u2019t support.'}),
           S({dur:3000, title:'Muse briefs it into a packet', at:'Muse', label:'PACKET', nodes:['n-Muse'],
              text:'A-01 briefs the update: source of truth is Registry v2; deliverable is updated dashboard content; criteria — every rank, role, and code word exact, and no status upgraded on anyone\u2019s say-so.'}),
-          S({dur:3400, title:'Roy carries the packet to Gemini', path:'w-carry', label:'PACKET', flow:'f-carry', nodes:['n-roy','n-worker'], carry:true,
-             text:'Roy pastes the packet to A-03 @Gemini for specialist input on the presentation. Same rule as always: Roy is the courier — there is no direct wire.'}),
-          S({dur:3400, title:'The draft comes back — via Roy', path:'w-return', label:'DRAFT', flow:'f-return', nodes:['n-worker','n-roy','n-Muse'],
-             text:'Gemini returns its draft and Roy pastes it back to A-01. Drafts don\u2019t publish themselves.'}),
+          S({dur:3400, title:'A-01 sends the packet to Gemini', path:'w-carry', label:'PACKET', flow:'f-carry', nodes:['n-roy','n-worker'], carry:true,
+             text:'A-01 sends the packet to A-03 @Gemini via the API — no paste step since 7 Nov 2026. Gemini is the one specialist A-01 reaches directly; the other specialists still go via Roy.'}),
+          S({dur:3400, title:'The draft comes back — via the API', path:'w-return', label:'DRAFT', flow:'f-return', nodes:['n-worker','n-roy','n-Muse'],
+             text:'Gemini returns its draft to A-01 via the API. Drafts don\u2019t publish themselves.'}),
           S({dur:3200, title:'Muse verifies against the Registry', at:'Muse', label:'VERIFYING', nodes:['n-Muse','n-drive','n-github'], dots:true,
              text:'A-01 checks every name, rank, role, and code word against Registry v2 and the mirrored record. Drift gets corrected before anything ships.'}),
           S({dur:2600, title:'Roy approves publishing', path:'w-assign', rev:true, label:'VERDICT', nodes:['n-roy','n-Muse'], badges:[{id:'b-roy',at:0.7}],

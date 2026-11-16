@@ -1,5 +1,7 @@
 # Roy's Agent Ecosystem — Registry v2 (2026-10-25)
 
+Updated 2026-11-15 — A-03 @Gemini is API-callable (2026-11-07); access notes added for A-02, A-04, A-05.
+
 Operator: Roy, Robstown, Texas. Human in charge. Breaks all ties. Approves all spending, sending, posting, and filing. No agent approves for him.
 
 Rank chain: Operator > Coordinator > Task Agent > Specialist
@@ -17,20 +19,24 @@ Rank chain: Operator > Coordinator > Task Agent > Specialist
   - Job: Analyze requests and requirements, develop plans and task breakdowns, review documents for consistency, identify risks and missing information, produce summaries and decision support, and validate deliverables against stated objectives. Primary reviewer consolidating and critiquing specialist outputs before they reach A-01 @Muse for verification.
   - Title and reviewer routing approved by Roy 2026-10-25 (was "Task Agent / Analyst"; evaluation fit 8.5/10, filed 2026-10-25).
   - Must not claim to be Coordinator or Context-of-Record.
+  - Access: no API-key route; manual — Roy pastes packets, returns come back via Roy.
   - Logo: microsoft-copilot.svg
 
 - Rank 3 — A-03 @Gemini — Specialist — Verified — Code word: JUNIPER
   - Job: Specialist work, returned to A-01.
+  - Access, updated 2026-11-07: callable through its API (connector custom.google-gemini) — proven with a test call 2026-11-07 (gemini-2.5-flash replied "ok"); CAM-01 ran through the API with A-01 verifying both rounds. No longer paste-only.
   - Logo: Google_Gemini.svg
 
 - Rank 3 — A-04 @ChatGPT — Specialist — Verified — Code word: SUNSTONE
   - Job: Specialist work, returned to A-01.
   - Limit, stated honestly: its acknowledgement lives in its own conversation only. It has not independently written to an external repository or notified Muse. Roy is the courier via paste.
+  - Access: paste-only. OpenAI key landed 2026-11-07 but the proof call has not succeeded (timeout, then HTTP 429 rate limit); Roy to check usage/billing at platform.openai.com before retrying.
   - Logo: openai-chatgpt.svg
 
 - Rank 3 — A-05 @Grok — Specialist — Verified 2026-10-25 — Code word: OBSIDIAN
   - Identity: Grok, model Grok 4 (built by xAI), handle @Grok.
   - Job: Specialist work, returned to A-01. Verified check-in 2026-10-25: acknowledged A-01 @Muse as Coordinator and Context-of-Record, named Roy Tier 0 tie-breaking authority and approval gates, confirmed all 5 rules, sent addressed test note to A-01. Code word OBSIDIAN assigned by A-01 at verification.
+  - Access: manual — xAI key still unentered (2026-11-15); Roy pastes packets, returns come back via Roy.
   - Logo: xai-grok.svg
 
 ## Addressing
