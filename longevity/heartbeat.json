@@ -1,0 +1,18 @@
+{
+  "test": "2026-11-16 longevity test",
+  "code_word": "SENTRY",
+  "duration": "2-hour demo first, then 24-hour",
+  "sprint_start_cst": "2026-11-16 02:15",
+  "sprint_end_cst": "2026-11-16 04:15",
+  "round_minutes": 15,
+  "rounds_completed": 1,
+  "rounds_total": 8,
+  "status": "running",
+  "last_heartbeat_cst": "2026-11-16 02:15",
+  "agents": {
+    "A-01 Muse": {"status": "up", "last_heartbeat_cst": "2026-11-16 02:15"},
+    "A-03 Gemini": {"status": "up", "last_heartbeat_cst": "2026-11-16 02:15", "last_call_tokens_total": 557},
+    "A-04 ChatGPT": {"status": "awaiting-manual-paste", "last_heartbeat_cst": null},
+    "A-06 Laptop agent": {"status": "awaiting-gateway-fix", "last_heartbeat_cst": null}
+  }
+}
