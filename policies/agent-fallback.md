@@ -13,6 +13,9 @@ The repo is the memory. Coordinator is a role, not a person. Any agent that can 
 
 No agent claims coordinator while the current coordinator is still producing verified rounds. A claim is logged in the round log with who, when, and why.
 
+## Gemini carries ChatGPT when it is down (adopted 2026-11-16 05:29 CST)
+ChatGPT's API is down (HTTP 429). When a paste round-trip is not available either, Gemini does ChatGPT's task in the same 3-line format and says which role it is covering. ChatGPT rejoins by paste when it is back, reads the log first, and does not replay missed rounds.
+
 ## If a specialist is down
 - A round still counts if at least 2 agents verify it. A missing agent is logged as "awaiting", not as a fail of the round.
 - The coordinator reassigns the missing agent's work to the next capable agent, and logs the swap:
