@@ -5,7 +5,7 @@
 <body>
 <h1>Longevity test — 2026-11-16</h1>
 <p>Code word: <strong>SENTRY</strong>. 2-hour demo first (02:15–04:15 CST, 8 rounds every 15 min), then a 24-hour run.</p>
-<p>Status: <strong>running</strong> — Round 2 of 8 complete, last heartbeat 03:24 CST.</p>
+<p>Status: <strong>sprint complete</strong> — 2 of 8 rounds done. Verdict: FAIL on the 8-round target. Last heartbeat 04:20 CST.</p>
 <h2>Roster</h2>
 <table><tr><th>Agent</th><th>Role</th><th>Status</th></tr>
 <tr><td>A-01 Muse</td><td>Coordinator</td><td class="up">up</td></tr>
@@ -18,4 +18,4 @@
 <h2>Round 1 — 02:15 CST — complete</h2>
 <p>Check-in round. Gemini replied verbatim with SENTRY, claimed nothing beyond the prompt. Muse verified it — PASS. ChatGPT and laptop agent still awaiting.</p>
 <p>Full log: <a href="longevity/2026-11-16-test.md">longevity/2026-11-16-test.md</a> · Heartbeat: <a href="longevity/heartbeat.json">heartbeat.json</a> · <a href="index.html">Back to dashboard</a></p>
-</body></html>
+<h2>Final verdict — 04:20 CST — FAIL on the 8-round target</h2><p>Rounds completed: 2 of 8. Rounds 3–8 never ran: the 02:45 and 03:00 runs show no sign of executing, no rounds came from the 03:30/03:45/04:00 slots, and the Round 2 push waited ~54 minutes for approval, landing 04:19. The Muse + Gemini loop worked every time it ran (2 of 2 rounds verified and pushed); the failure was run cadence and the approval wait, not the agent loop. Gemini: 3 calls, 2,703 tokens total (1,205 verified). ChatGPT still awaiting manual paste (API 429); laptop agent still awaiting the gateway fix. The 24-hour run was NOT started — that is Roy's separate decision.</p></body></html>

@@ -7,16 +7,16 @@
   "round_minutes": 15,
   "rounds_completed": 2,
   "rounds_total": 8,
-  "status": "running",
-  "last_heartbeat_cst": "2026-11-16 03:24",
+  "status": "complete",
+  "last_heartbeat_cst": "2026-11-16 04:20",
   "agents": {
     "A-01 Muse": {
-      "last_heartbeat_cst": "2026-11-16 03:24",
+      "last_heartbeat_cst": "2026-11-16 04:20",
       "status": "up"
     },
     "A-03 Gemini": {
       "last_call_tokens_total": 648,
-      "last_heartbeat_cst": "2026-11-16 03:24",
+      "last_heartbeat_cst": "2026-11-16 04:20",
       "status": "up"
     },
     "A-04 ChatGPT": {
@@ -27,5 +27,7 @@
       "last_heartbeat_cst": null,
       "status": "awaiting-gateway-fix"
     }
-  }
+  },
+  "verdict": "fail \u2014 2 of 8 rounds completed",
+  "final_verdict_cst": "2026-11-16 04:20"
 }
