@@ -3,24 +3,24 @@
   "code_word": "BEACON",
   "mode": "live in chat",
   "sprint_start_cst": "2026-11-16 05:07",
-  "rounds_completed": 7,
+  "rounds_completed": 8,
   "rounds_total": 8,
-  "status": "running",
-  "last_heartbeat_cst": "2026-11-16 05:30",
+  "status": "complete",
+  "last_heartbeat_cst": "2026-11-16 05:32",
   "gemini_total_tokens_all_rounds": 8328,
   "agents": {
     "A-01 Muse": {
       "status": "up",
-      "last_heartbeat_cst": "2026-11-16 05:30"
+      "last_heartbeat_cst": "2026-11-16 05:32"
     },
     "A-03 Gemini": {
       "status": "up",
-      "last_heartbeat_cst": "2026-11-16 05:30",
-      "last_call_tokens_total": 1947
+      "last_heartbeat_cst": "2026-11-16 05:32",
+      "last_call_tokens_total": 1217
     },
     "A-04 ChatGPT": {
       "status": "up-manual-paste",
-      "last_heartbeat_cst": "2026-11-16 05:30"
+      "last_heartbeat_cst": "2026-11-16 05:32"
     },
     "A-06 Laptop agent": {
       "status": "awaiting-doctor-fix",
