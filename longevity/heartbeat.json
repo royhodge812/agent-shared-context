@@ -5,14 +5,27 @@
   "sprint_start_cst": "2026-11-16 02:15",
   "sprint_end_cst": "2026-11-16 04:15",
   "round_minutes": 15,
-  "rounds_completed": 1,
+  "rounds_completed": 2,
   "rounds_total": 8,
   "status": "running",
-  "last_heartbeat_cst": "2026-11-16 02:15",
+  "last_heartbeat_cst": "2026-11-16 03:24",
   "agents": {
-    "A-01 Muse": {"status": "up", "last_heartbeat_cst": "2026-11-16 02:15"},
-    "A-03 Gemini": {"status": "up", "last_heartbeat_cst": "2026-11-16 02:15", "last_call_tokens_total": 557},
-    "A-04 ChatGPT": {"status": "awaiting-manual-paste", "last_heartbeat_cst": null},
-    "A-06 Laptop agent": {"status": "awaiting-gateway-fix", "last_heartbeat_cst": null}
+    "A-01 Muse": {
+      "last_heartbeat_cst": "2026-11-16 03:24",
+      "status": "up"
+    },
+    "A-03 Gemini": {
+      "last_call_tokens_total": 648,
+      "last_heartbeat_cst": "2026-11-16 03:24",
+      "status": "up"
+    },
+    "A-04 ChatGPT": {
+      "last_heartbeat_cst": null,
+      "status": "awaiting-manual-paste"
+    },
+    "A-06 Laptop agent": {
+      "last_heartbeat_cst": null,
+      "status": "awaiting-gateway-fix"
+    }
   }
 }
