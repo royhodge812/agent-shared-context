@@ -11,4 +11,4 @@
 - BEACON Round 7 — Stop if fallback cannot maintain operations or the laptop agent is activated before a clean install is verified.
 
 ## Status
-LIVE — the 24-hour run started Mon 2026-11-16 05:34 CST on Roy's explicit yes. Rounds 1–16 complete (commits 07693c8c, 276643aa, 01ca1e6e, e6dcd257, db636353, e718b4cc, 3b1b57f9, 89c56367, bd210618, 3f4bc5f1, a5a2eb5a, 6f59da69, 5c466fb4, b4aae440, f21ba22f, 15b67dd2). Round 17 in progress (started 21:34 CST). Stop conditions above apply for the duration of the run.
+LIVE — the 24-hour run started Mon 2026-11-16 05:34 CST on Roy's explicit yes. Rounds 1–17 complete (commits 07693c8c, 276643aa, 01ca1e6e, e6dcd257, db636353, e718b4cc, 3b1b57f9, 89c56367, bd210618, 3f4bc5f1, a5a2eb5a, 6f59da69, 5c466fb4, b4aae440, f21ba22f, 15b67dd2, a586e082). Round 18 in progress (started 22:34 CST). Stop conditions above apply for the duration of the run.
